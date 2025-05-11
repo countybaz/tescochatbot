@@ -5,13 +5,24 @@ import { Button } from "@/components/ui/button";
 import { User, Bot } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
+// Define message types for better organization
+type MessageId = 
+  | 'welcome1' 
+  | 'welcome2' 
+  | 'start-button'
+  | 'user-start'
+  | 'msg1'
+  | 'msg2'
+  | 'msg3'
+  | 'begin-button'
+  | 'user-begin'
+  | 'final-message';
+
 const ChatBot: React.FC = () => {
   const isMobile = useIsMobile();
-  // Reference for auto-scrolling
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const [messagesShown, setMessagesShown] = useState<Record<string, boolean>>({});
+  const [visibleMessages, setVisibleMessages] = useState<MessageId[]>([]);
   const [showClaimButton, setShowClaimButton] = useState(false);
-  const [conversationCompleted, setConversationCompleted] = useState(false);
 
   // Function to scroll to the bottom of the chat
   const scrollToBottom = () => {
@@ -23,9 +34,15 @@ const ChatBot: React.FC = () => {
     }
   };
 
-  const showMessage = (msgId: string) => {
-    setMessagesShown(prev => ({ ...prev, [msgId]: true }));
+  // Add a message ID to the visible messages array
+  const showMessage = (msgId: MessageId) => {
+    setVisibleMessages(prev => [...prev, msgId]);
     setTimeout(scrollToBottom, 100);
+  };
+
+  // Check if a message should be displayed
+  const isMessageVisible = (msgId: MessageId): boolean => {
+    return visibleMessages.includes(msgId);
   };
 
   useEffect(() => {
@@ -34,42 +51,41 @@ const ChatBot: React.FC = () => {
     if (chatContainer) {
       const observer = new MutationObserver(scrollToBottom);
       observer.observe(chatContainer, { childList: true, subtree: true });
+      return () => observer.disconnect();
     }
 
-    // Only show the initial welcome messages
-    setTimeout(() => showMessage("welcome1"), 800);
-    setTimeout(() => showMessage("welcome2"), 1600);
-    setTimeout(() => showMessage("start-button"), 2400);
+    // Only show the initial welcome messages on page load
+    // No setTimeout here to avoid showing messages automatically
+  }, []);
+
+  // Show initial messages when component mounts
+  useEffect(() => {
+    // Only show the first two welcome messages and the start button initially
+    setTimeout(() => showMessage('welcome1'), 800);
+    setTimeout(() => showMessage('welcome2'), 1600);
+    setTimeout(() => showMessage('start-button'), 2400);
   }, []);
 
   const handleStartClick = () => {
-    showMessage("user-reply");
+    // Add user's response
+    showMessage('user-start');
     
-    setTimeout(() => {
-      showMessage("msg1");
-      
-      setTimeout(() => {
-        showMessage("msg2");
-        
-        setTimeout(() => {
-          showMessage("msg3");
-          
-          setTimeout(() => {
-            showMessage("begin-button");
-          }, 1500);
-        }, 1500);
-      }, 1500);
-    }, 1000);
+    // Show next set of messages with delays
+    setTimeout(() => showMessage('msg1'), 800);
+    setTimeout(() => showMessage('msg2'), 1600);
+    setTimeout(() => showMessage('msg3'), 2400);
+    setTimeout(() => showMessage('begin-button'), 3200);
   };
 
   const handleBeginClick = () => {
-    showMessage("user-reply-2");
+    // Add user's response
+    showMessage('user-begin');
     
+    // Show final message with claim button
     setTimeout(() => {
-      showMessage("final-message");
-      setConversationCompleted(true);
+      showMessage('final-message');
       setShowClaimButton(true);
-    }, 1500);
+    }, 800);
   };
 
   return (
@@ -98,131 +114,154 @@ const ChatBot: React.FC = () => {
           className="p-3 sm:p-4 flex flex-col space-y-4 h-[400px] sm:h-[500px] overflow-y-auto"
           style={{ scrollBehavior: 'smooth' }}
         >
-          {/* Initial welcome messages */}
-          <div className={`chat-message flex items-start ${messagesShown["welcome1"] ? "flex" : "hidden"}`}>
-            <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
-              <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
-              <AvatarFallback><Bot size={16} /></AvatarFallback>
-            </Avatar>
-            <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
-              <p className="text-base">You've been selected to take part in an exclusive Sainsbury's giveaway!</p>
-            </div>
-          </div>
-
-          <div className={`chat-message flex items-start ${messagesShown["welcome2"] ? "flex" : "hidden"}`}>
-            <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
-              <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
-              <AvatarFallback><Bot size={16} /></AvatarFallback>
-            </Avatar>
-            <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
-              <p className="text-base">Tell us what you think of our products and you will earn a Sainsbury's Gift Card</p>
-            </div>
-          </div>
-
-          {/* START button */}
-          <div className={`chat-message flex items-start ${messagesShown["start-button"] ? "flex" : "hidden"}`}>
-            <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
-              <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
-              <AvatarFallback><Bot size={16} /></AvatarFallback>
-            </Avatar>
-            <div>
-              <Button 
-                id="start-btn"
-                onClick={handleStartClick} 
-                variant="default" 
-                className="bg-orange-500 hover:bg-orange-600"
-              >
-                START
-              </Button>
-            </div>
-          </div>
-
-          {/* User reply - aligned to the right */}
-          <div className={`chat-message justify-end ${messagesShown["user-reply"] ? "flex" : "hidden"}`}>
-            <div className="bg-orange-500 text-white p-3 rounded-lg max-w-[80%]">
-              <p className="text-base">Start</p>
-            </div>
-            <Avatar className="h-8 w-8 ml-2 mt-1 shrink-0">
-              <AvatarFallback><User size={16} /></AvatarFallback>
-            </Avatar>
-          </div>
-
-          {/* Bot messages after START */}
-          <div className={`chat-message flex items-start ${messagesShown["msg1"] ? "flex" : "hidden"}`}>
-            <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
-              <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
-              <AvatarFallback><Bot size={16} /></AvatarFallback>
-            </Avatar>
-            <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
-              <p className="text-base">Great! We value your opinions — your feedback helps us improve our products.</p>
-            </div>
-          </div>
-
-          <div className={`chat-message flex items-start ${messagesShown["msg2"] ? "flex" : "hidden"}`}>
-            <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
-              <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
-              <AvatarFallback><Bot size={16} /></AvatarFallback>
-            </Avatar>
-            <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
-              <p className="text-base">This will only take 20 seconds, and you'll be one step closer to your £100 gift card.</p>
-            </div>
-          </div>
-
-          <div className={`chat-message flex items-start ${messagesShown["msg3"] ? "flex" : "hidden"}`}>
-            <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
-              <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
-              <AvatarFallback><Bot size={16} /></AvatarFallback>
-            </Avatar>
-            <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
-              <p className="text-base">Just a few simple questions ahead.</p>
-            </div>
-          </div>
-
-          {/* BEGIN button */}
-          <div className={`chat-message flex items-start ${messagesShown["begin-button"] ? "flex" : "hidden"}`}>
-            <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
-              <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
-              <AvatarFallback><Bot size={16} /></AvatarFallback>
-            </Avatar>
-            <div>
-              <Button 
-                id="begin-btn"
-                onClick={handleBeginClick}
-                variant="default" 
-                className="bg-orange-500 hover:bg-orange-600"
-              >
-                BEGIN
-              </Button>
-            </div>
-          </div>
-
-          {/* Second user reply - aligned to the right */}
-          <div className={`chat-message justify-end ${messagesShown["user-reply-2"] ? "flex" : "hidden"}`}>
-            <div className="bg-orange-500 text-white p-3 rounded-lg max-w-[80%]">
-              <p className="text-base">BEGIN</p>
-            </div>
-            <Avatar className="h-8 w-8 ml-2 mt-1 shrink-0">
-              <AvatarFallback><User size={16} /></AvatarFallback>
-            </Avatar>
-          </div>
-
-          {/* Final message with claim button */}
-          <div className={`chat-message flex items-start ${messagesShown["final-message"] ? "flex" : "hidden"}`}>
-            <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
-              <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
-              <AvatarFallback><Bot size={16} /></AvatarFallback>
-            </Avatar>
-            <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
-              <p className="text-base">Thanks for your interest! Click the button below to start your review and claim your Sainsbury's gift card.</p>
-              <div className="mt-6 flex justify-center">
-                {showClaimButton && (
-                  <a href="https://www.tapplink.co/21468/1084/chatbot" target="_blank" rel="noopener noreferrer" className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 sm:py-4 sm:px-10 rounded-full transition-colors text-lg sm:text-2xl shadow-lg animate-pulse">
-                    CLAIM NOW
-                  </a>
-                )}
+          {/* Welcome message 1 - Only shown on initial load */}
+          {isMessageVisible('welcome1') && (
+            <div className="chat-message flex items-start">
+              <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
+                <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
+                <AvatarFallback><Bot size={16} /></AvatarFallback>
+              </Avatar>
+              <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
+                <p className="text-base">You've been selected to take part in an exclusive Sainsbury's giveaway!</p>
               </div>
             </div>
-          </div>
+          )}
+
+          {/* Welcome message 2 - Only shown on initial load */}
+          {isMessageVisible('welcome2') && (
+            <div className="chat-message flex items-start">
+              <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
+                <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
+                <AvatarFallback><Bot size={16} /></AvatarFallback>
+              </Avatar>
+              <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
+                <p className="text-base">Tell us what you think of our products and you will earn a Sainsbury's Gift Card</p>
+              </div>
+            </div>
+          )}
+
+          {/* START button - Only shown on initial load */}
+          {isMessageVisible('start-button') && (
+            <div className="chat-message flex items-start">
+              <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
+                <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
+                <AvatarFallback><Bot size={16} /></AvatarFallback>
+              </Avatar>
+              <div>
+                <Button 
+                  id="start-btn"
+                  onClick={handleStartClick} 
+                  variant="default" 
+                  className="bg-orange-500 hover:bg-orange-600"
+                >
+                  START
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {/* User reply after clicking START - aligned to the right */}
+          {isMessageVisible('user-start') && (
+            <div className="chat-message flex justify-end">
+              <div className="bg-orange-500 text-white p-3 rounded-lg max-w-[80%]">
+                <p className="text-base">Start</p>
+              </div>
+              <Avatar className="h-8 w-8 ml-2 mt-1 shrink-0">
+                <AvatarFallback><User size={16} /></AvatarFallback>
+              </Avatar>
+            </div>
+          )}
+
+          {/* Bot message 1 after START - Only shown after clicking START */}
+          {isMessageVisible('msg1') && (
+            <div className="chat-message flex items-start">
+              <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
+                <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
+                <AvatarFallback><Bot size={16} /></AvatarFallback>
+              </Avatar>
+              <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
+                <p className="text-base">Great! We value your opinions — your feedback helps us improve our products.</p>
+              </div>
+            </div>
+          )}
+
+          {/* Bot message 2 after START - Only shown after clicking START */}
+          {isMessageVisible('msg2') && (
+            <div className="chat-message flex items-start">
+              <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
+                <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
+                <AvatarFallback><Bot size={16} /></AvatarFallback>
+              </Avatar>
+              <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
+                <p className="text-base">This will only take 20 seconds, and you'll be one step closer to your £100 gift card.</p>
+              </div>
+            </div>
+          )}
+
+          {/* Bot message 3 after START - Only shown after clicking START */}
+          {isMessageVisible('msg3') && (
+            <div className="chat-message flex items-start">
+              <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
+                <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
+                <AvatarFallback><Bot size={16} /></AvatarFallback>
+              </Avatar>
+              <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
+                <p className="text-base">Just a few simple questions ahead.</p>
+              </div>
+            </div>
+          )}
+
+          {/* BEGIN button - Only shown after showing all three previous messages */}
+          {isMessageVisible('begin-button') && (
+            <div className="chat-message flex items-start">
+              <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
+                <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
+                <AvatarFallback><Bot size={16} /></AvatarFallback>
+              </Avatar>
+              <div>
+                <Button 
+                  id="begin-btn"
+                  onClick={handleBeginClick}
+                  variant="default" 
+                  className="bg-orange-500 hover:bg-orange-600"
+                >
+                  BEGIN
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {/* User reply after clicking BEGIN - aligned to the right */}
+          {isMessageVisible('user-begin') && (
+            <div className="chat-message flex justify-end">
+              <div className="bg-orange-500 text-white p-3 rounded-lg max-w-[80%]">
+                <p className="text-base">BEGIN</p>
+              </div>
+              <Avatar className="h-8 w-8 ml-2 mt-1 shrink-0">
+                <AvatarFallback><User size={16} /></AvatarFallback>
+              </Avatar>
+            </div>
+          )}
+
+          {/* Final message with claim button - Only shown after clicking BEGIN */}
+          {isMessageVisible('final-message') && (
+            <div className="chat-message flex items-start">
+              <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
+                <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
+                <AvatarFallback><Bot size={16} /></AvatarFallback>
+              </Avatar>
+              <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
+                <p className="text-base">Thanks for your interest! Click the button below to start your review and claim your Sainsbury's gift card.</p>
+                <div className="mt-6 flex justify-center">
+                  {showClaimButton && (
+                    <a href="https://www.tapplink.co/21468/1084/chatbot" target="_blank" rel="noopener noreferrer" className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 sm:py-4 sm:px-10 rounded-full transition-colors text-lg sm:text-2xl shadow-lg animate-pulse">
+                      CLAIM NOW
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
