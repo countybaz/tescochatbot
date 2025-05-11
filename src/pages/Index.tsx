@@ -1,6 +1,7 @@
 
-import { SurveyProvider, useSurvey } from "@/contexts/SurveyContext";
+import { SurveyProvider } from "@/contexts/SurveyContext";
 import SurveyContainer from "@/components/SurveyContainer";
+import ChatBot from "@/components/ChatBot";
 import FAQ from "@/components/FAQ";
 import { Link } from "react-router-dom";
 
@@ -15,6 +16,7 @@ const Index = () => {
         </header>
         
         <main className="container mx-auto relative">
+          <ChatBot />
           <SurveyContainer />
         </main>
       </SurveyProvider>
@@ -52,17 +54,8 @@ const Index = () => {
 
 // Create a separate component for the header content
 const HeaderContent = () => {
-  const { goToStep } = useSurvey();
-  
-  const handleLogoClick = () => {
-    goToStep(0);
-  };
-  
   return (
-    <div 
-      className="flex items-center cursor-pointer" 
-      onClick={handleLogoClick}
-    >
+    <div className="flex items-center cursor-pointer">
       <img 
         src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" 
         alt="Sainsbury's Review Program Logo" 
