@@ -1,4 +1,3 @@
-
 import { SurveyProvider } from "@/contexts/SurveyContext";
 import ChatBot from "@/components/ChatBot";
 import FAQ from "@/components/FAQ";
@@ -14,13 +13,12 @@ const Index = () => {
               <img 
                 src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" 
                 alt="Sainsbury's Review Program Logo" 
-                className="h-14 w-auto mr-3" 
-                width="110" 
-                height="110"
+                className="h-16 w-auto mr-3" 
+                width="120" 
+                height="120"
               />
-              <h1 className="text-xl font-bold text-orange-600">Sainsbury's Review Program</h1>
             </div>
-            {/* Move FAQ to the top right */}
+            <h1 className="text-xl font-bold text-orange-600 flex-grow text-center">Sainsbury's Review Program</h1>
             <div className="z-50">
               <FAQ />
             </div>

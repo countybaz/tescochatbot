@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -7,18 +7,23 @@ import { Link } from "react-router-dom";
 const ChatBot: React.FC = () => {
   // Reference for auto-scrolling
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const [showEmoji, setShowEmoji] = useState(false);
+  const emojiList = ["😀", "🤔", "✍️", "💭"];
 
   // Function to scroll to the bottom of the chat
   const scrollToBottom = () => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
     }
   };
 
   useEffect(() => {
     const startChat = () => {
       // Fixed timing durations for smooth animations
-      const typingDurations = [800, 800, 800, 800]; 
+      const typingDurations = [2000, 2000, 2000, 2000]; 
       const initialDelay = 400;
 
       // Set up mutation observer to detect new messages and scroll down
@@ -28,23 +33,38 @@ const ChatBot: React.FC = () => {
         observer.observe(chatContainer, { childList: true, subtree: true });
       }
 
+      // Helper function to show emoji typing
+      const showTypingWithEmoji = (typingId: string, callback: () => void, duration: number) => {
+        setShowEmoji(true);
+        const typing = document.getElementById(typingId);
+        if (typing) {
+          typing.style.display = 'flex'; // Show the typing animation
+          setTimeout(() => {
+            typing.style.display = 'none'; // Hide the typing animation
+            setShowEmoji(false);
+            callback(); // Display the corresponding chat bubble
+            scrollToBottom();
+          }, duration);
+        }
+      };
+
       // Staggered delays between messages for more natural conversation flow
       setTimeout(() => {
-        showTyping("typing1", () => showMessage("msg1"), typingDurations[0]);
+        showTypingWithEmoji("typing1", () => showMessage("msg1"), typingDurations[0]);
 
         setTimeout(() => {
           hideAvatar("avatar1");
-          showTyping("typing2", () => showMessage("msg2"), typingDurations[1]);
+          showTypingWithEmoji("typing2", () => showMessage("msg2"), typingDurations[1]);
         }, typingDurations[0] + initialDelay);
 
         setTimeout(() => {
           hideAvatar("avatar2");
-          showTyping("typing3", () => showMessage("msg3"), typingDurations[2]);
+          showTypingWithEmoji("typing3", () => showMessage("msg3"), typingDurations[2]);
         }, typingDurations[0] + typingDurations[1] + 2 * initialDelay);
 
         setTimeout(() => {
           hideAvatar("avatar3");
-          showTyping("typing4", () => showMessage("msg4"), typingDurations[3]);
+          showTypingWithEmoji("typing4", () => showMessage("msg4"), typingDurations[3]);
           scrollToBottom();
         }, typingDurations[0] + typingDurations[1] + typingDurations[2] + 3 * initialDelay);
       }, initialDelay);
@@ -60,31 +80,31 @@ const ChatBot: React.FC = () => {
 
             setTimeout(() => {
               hideAvatar("avatar4");
-              showTyping("typing5", () => {
+              showTypingWithEmoji("typing5", () => {
                 showMessage("msg5"); // "Great! We value your opinions" message
                 scrollToBottom();
 
                 setTimeout(() => {
                   hideAvatar("avatar5");
-                  showTyping("typing6", () => {
+                  showTypingWithEmoji("typing6", () => {
                     showMessage("msg6"); // "This will only take 20 seconds" message
                     scrollToBottom();
 
                     setTimeout(() => {
                       hideAvatar("avatar6");
-                      showTyping("typing7", () => {
+                      showTypingWithEmoji("typing7", () => {
                         showMessage("msg7"); // "Just a few simple questions ahead" message
                         scrollToBottom();
 
                         setTimeout(() => {
                           hideAvatar("avatar7");
-                          showTyping("typing8", () => {
+                          showTypingWithEmoji("typing8", () => {
                             showMessage("msg8"); // "Click Begin Below To Start"
                             scrollToBottom();
 
                             setTimeout(() => {
                               hideAvatar("avatar8");
-                              showTyping("typing9", () => {
+                              showTypingWithEmoji("typing9", () => {
                                 showMessage("msg9"); // Display the "BEGIN" button
                                 scrollToBottom();
                                 const yesBtn2 = document.getElementById("yes-btn-2");
@@ -96,22 +116,22 @@ const ChatBot: React.FC = () => {
 
                                     setTimeout(() => {
                                       hideAvatar("avatar9");
-                                      showTyping("typing10", () => {
+                                      showTypingWithEmoji("typing10", () => {
                                         showMessage("msg10"); // Display the final message with link
                                         scrollToBottom();
-                                      }, 800); // Typing duration for the new agent response
+                                      }, 2000); // Typing duration for the new agent response
                                     }, 600); // Delay before the agent's final response
                                   });
                                 }
-                              }, 800); // Typing duration for the "BEGIN" button
+                              }, 2000); // Typing duration for the "BEGIN" button
                             }, 800); 
-                          }, 800); 
+                          }, 2000); 
                         }, 800); 
-                      }, 800); 
+                      }, 2000); 
                     }, 800);
-                  }, 800);
+                  }, 2000);
                 }, 800);
-              }, 800);
+              }, 2000);
             }, 600);
           });
         }
@@ -145,11 +165,16 @@ const ChatBot: React.FC = () => {
 
     // Start the chat sequence
     startChat();
-  }, []);
+  }, [showEmoji]);
+
+  // Random emoji for typing indicator
+  const getRandomEmoji = () => {
+    return emojiList[Math.floor(Math.random() * emojiList.length)];
+  };
 
   return (
     <div className="py-8 px-4 flex flex-col items-center">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-lg overflow-hidden">
+      <div className="w-full max-w-xl bg-white rounded-lg shadow-lg overflow-hidden">
         {/* Status indicator with fixed height */}
         <div className="bg-white p-2 flex items-center text-sm justify-center border-b h-10">
           <div className="flex items-center">
@@ -166,9 +191,9 @@ const ChatBot: React.FC = () => {
         >
           {/* First message */}
           <div className="chat-message" id="msg1">
-            <div className="flex items-start">
+            <div className="grid grid-cols-[40px_1fr] gap-3">
               <div id="avatar1" className="chat-avatar">
-                <Avatar className="h-8 w-8">
+                <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Avatar" />
                   <AvatarFallback>S</AvatarFallback>
                 </Avatar>
@@ -181,10 +206,12 @@ const ChatBot: React.FC = () => {
 
           {/* Typing animation for the first message */}
           <div className="chat-message" id="typing1">
-            <div className="flex items-start">
+            <div className="grid grid-cols-[40px_1fr] gap-3">
               <div className="chat-avatar">
-                <Avatar className="h-8 w-8 bg-gray-200">
-                  <AvatarFallback>...</AvatarFallback>
+                <Avatar className="h-10 w-10 bg-gray-200">
+                  <AvatarFallback>
+                    {showEmoji ? getRandomEmoji() : "..."}
+                  </AvatarFallback>
                 </Avatar>
               </div>
               <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 chat-message-content">
@@ -197,9 +224,9 @@ const ChatBot: React.FC = () => {
 
           {/* Second message */}
           <div className="chat-message" id="msg2">
-            <div className="flex items-start">
+            <div className="grid grid-cols-[40px_1fr] gap-3">
               <div id="avatar2" className="chat-avatar">
-                <Avatar className="h-8 w-8">
+                <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Avatar" />
                   <AvatarFallback>S</AvatarFallback>
                 </Avatar>
@@ -212,10 +239,12 @@ const ChatBot: React.FC = () => {
 
           {/* Typing animation for second message */}
           <div className="chat-message" id="typing2">
-            <div className="flex items-start">
+            <div className="grid grid-cols-[40px_1fr] gap-3">
               <div className="chat-avatar">
-                <Avatar className="h-8 w-8 bg-gray-200">
-                  <AvatarFallback>...</AvatarFallback>
+                <Avatar className="h-10 w-10 bg-gray-200">
+                  <AvatarFallback>
+                    {showEmoji ? getRandomEmoji() : "..."}
+                  </AvatarFallback>
                 </Avatar>
               </div>
               <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 chat-message-content">
@@ -228,9 +257,9 @@ const ChatBot: React.FC = () => {
 
           {/* Third message */}
           <div className="chat-message" id="msg3">
-            <div className="flex items-start">
+            <div className="grid grid-cols-[40px_1fr] gap-3">
               <div id="avatar3" className="chat-avatar">
-                <Avatar className="h-8 w-8">
+                <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Avatar" />
                   <AvatarFallback>S</AvatarFallback>
                 </Avatar>
@@ -243,10 +272,12 @@ const ChatBot: React.FC = () => {
 
           {/* Typing animation for third message */}
           <div className="chat-message" id="typing3">
-            <div className="flex items-start">
+            <div className="grid grid-cols-[40px_1fr] gap-3">
               <div className="chat-avatar">
-                <Avatar className="h-8 w-8 bg-gray-200">
-                  <AvatarFallback>...</AvatarFallback>
+                <Avatar className="h-10 w-10 bg-gray-200">
+                  <AvatarFallback>
+                    {showEmoji ? getRandomEmoji() : "..."}
+                  </AvatarFallback>
                 </Avatar>
               </div>
               <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 chat-message-content">
@@ -259,23 +290,25 @@ const ChatBot: React.FC = () => {
 
           {/* Fourth message with START button */}
           <div className="chat-message" id="msg4">
-            <div className="flex items-start">
+            <div className="grid grid-cols-[40px_1fr] gap-3">
               <div id="avatar4" className="chat-avatar">
-                <Avatar className="h-8 w-8">
+                <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Avatar" />
                   <AvatarFallback>S</AvatarFallback>
                 </Avatar>
               </div>
-              <Button id="yes-btn" variant="default" className="bg-orange-500 hover:bg-orange-600">START</Button>
+              <div>
+                <Button id="yes-btn" variant="default" className="bg-orange-500 hover:bg-orange-600">START</Button>
+              </div>
             </div>
           </div>
 
           {/* User reply - moved to the right */}
           <div className="chat-message user-message" id="user-reply">
-            <div className="flex items-start justify-end w-full">
-              <div className="bg-orange-500 text-white p-3 rounded-lg chat-message-content">Start</div>
+            <div className="grid grid-cols-[1fr_40px] gap-3 justify-items-end">
+              <div className="bg-orange-500 text-white p-3 rounded-lg justify-self-end">Start</div>
               <div className="chat-avatar">
-                <Avatar className="h-8 w-8">
+                <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="User" />
                   <AvatarFallback>U</AvatarFallback>
                 </Avatar>
@@ -285,10 +318,12 @@ const ChatBot: React.FC = () => {
 
           {/* Typing animation for fourth message */}
           <div className="chat-message" id="typing4">
-            <div className="flex items-start">
+            <div className="grid grid-cols-[40px_1fr] gap-3">
               <div className="chat-avatar">
-                <Avatar className="h-8 w-8 bg-gray-200">
-                  <AvatarFallback>...</AvatarFallback>
+                <Avatar className="h-10 w-10 bg-gray-200">
+                  <AvatarFallback>
+                    {showEmoji ? getRandomEmoji() : "..."}
+                  </AvatarFallback>
                 </Avatar>
               </div>
               <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 chat-message-content">
@@ -301,10 +336,12 @@ const ChatBot: React.FC = () => {
 
           {/* Typing animation for agent response */}
           <div className="chat-message" id="typing5">
-            <div className="flex items-start">
+            <div className="grid grid-cols-[40px_1fr] gap-3">
               <div className="chat-avatar">
-                <Avatar className="h-8 w-8 bg-gray-200">
-                  <AvatarFallback>...</AvatarFallback>
+                <Avatar className="h-10 w-10 bg-gray-200">
+                  <AvatarFallback>
+                    {showEmoji ? getRandomEmoji() : "..."}
+                  </AvatarFallback>
                 </Avatar>
               </div>
               <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 chat-message-content">
@@ -317,9 +354,9 @@ const ChatBot: React.FC = () => {
 
           {/* Fifth message */}
           <div className="chat-message" id="msg5">
-            <div className="flex items-start">
+            <div className="grid grid-cols-[40px_1fr] gap-3">
               <div id="avatar5" className="chat-avatar">
-                <Avatar className="h-8 w-8">
+                <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Avatar" />
                   <AvatarFallback>S</AvatarFallback>
                 </Avatar>
@@ -332,10 +369,12 @@ const ChatBot: React.FC = () => {
 
           {/* Typing animation for sixth message */}
           <div className="chat-message" id="typing6">
-            <div className="flex items-start">
+            <div className="grid grid-cols-[40px_1fr] gap-3">
               <div className="chat-avatar">
-                <Avatar className="h-8 w-8 bg-gray-200">
-                  <AvatarFallback>...</AvatarFallback>
+                <Avatar className="h-10 w-10 bg-gray-200">
+                  <AvatarFallback>
+                    {showEmoji ? getRandomEmoji() : "..."}
+                  </AvatarFallback>
                 </Avatar>
               </div>
               <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 chat-message-content">
@@ -348,9 +387,9 @@ const ChatBot: React.FC = () => {
 
           {/* Sixth message */}
           <div className="chat-message" id="msg6">
-            <div className="flex items-start">
+            <div className="grid grid-cols-[40px_1fr] gap-3">
               <div id="avatar6" className="chat-avatar">
-                <Avatar className="h-8 w-8">
+                <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Avatar" />
                   <AvatarFallback>S</AvatarFallback>
                 </Avatar>
@@ -363,10 +402,12 @@ const ChatBot: React.FC = () => {
 
           {/* Typing animation for seventh message */}
           <div className="chat-message" id="typing7">
-            <div className="flex items-start">
+            <div className="grid grid-cols-[40px_1fr] gap-3">
               <div className="chat-avatar">
-                <Avatar className="h-8 w-8 bg-gray-200">
-                  <AvatarFallback>...</AvatarFallback>
+                <Avatar className="h-10 w-10 bg-gray-200">
+                  <AvatarFallback>
+                    {showEmoji ? getRandomEmoji() : "..."}
+                  </AvatarFallback>
                 </Avatar>
               </div>
               <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 chat-message-content">
@@ -379,9 +420,9 @@ const ChatBot: React.FC = () => {
 
           {/* Seventh message */}
           <div className="chat-message" id="msg7">
-            <div className="flex items-start">
+            <div className="grid grid-cols-[40px_1fr] gap-3">
               <div id="avatar7" className="chat-avatar">
-                <Avatar className="h-8 w-8">
+                <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Avatar" />
                   <AvatarFallback>S</AvatarFallback>
                 </Avatar>
@@ -394,10 +435,12 @@ const ChatBot: React.FC = () => {
 
           {/* Typing animation for eighth message */}
           <div className="chat-message" id="typing8">
-            <div className="flex items-start">
+            <div className="grid grid-cols-[40px_1fr] gap-3">
               <div className="chat-avatar">
-                <Avatar className="h-8 w-8 bg-gray-200">
-                  <AvatarFallback>...</AvatarFallback>
+                <Avatar className="h-10 w-10 bg-gray-200">
+                  <AvatarFallback>
+                    {showEmoji ? getRandomEmoji() : "..."}
+                  </AvatarFallback>
                 </Avatar>
               </div>
               <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 chat-message-content">
@@ -410,9 +453,9 @@ const ChatBot: React.FC = () => {
 
           {/* Eighth message */}
           <div className="chat-message" id="msg8">
-            <div className="flex items-start">
+            <div className="grid grid-cols-[40px_1fr] gap-3">
               <div id="avatar8" className="chat-avatar">
-                <Avatar className="h-8 w-8">
+                <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Avatar" />
                   <AvatarFallback>S</AvatarFallback>
                 </Avatar>
@@ -425,10 +468,12 @@ const ChatBot: React.FC = () => {
 
           {/* Typing animation for ninth message */}
           <div className="chat-message" id="typing9">
-            <div className="flex items-start">
+            <div className="grid grid-cols-[40px_1fr] gap-3">
               <div className="chat-avatar">
-                <Avatar className="h-8 w-8 bg-gray-200">
-                  <AvatarFallback>...</AvatarFallback>
+                <Avatar className="h-10 w-10 bg-gray-200">
+                  <AvatarFallback>
+                    {showEmoji ? getRandomEmoji() : "..."}
+                  </AvatarFallback>
                 </Avatar>
               </div>
               <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 chat-message-content">
@@ -441,23 +486,25 @@ const ChatBot: React.FC = () => {
 
           {/* Ninth message with BEGIN button */}
           <div className="chat-message" id="msg9">
-            <div className="flex items-start">
+            <div className="grid grid-cols-[40px_1fr] gap-3">
               <div id="avatar9" className="chat-avatar">
-                <Avatar className="h-8 w-8">
+                <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Avatar" />
                   <AvatarFallback>S</AvatarFallback>
                 </Avatar>
               </div>
-              <Button id="yes-btn-2" variant="default" className="bg-orange-500 hover:bg-orange-600">BEGIN</Button>
+              <div>
+                <Button id="yes-btn-2" variant="default" className="bg-orange-500 hover:bg-orange-600">BEGIN</Button>
+              </div>
             </div>
           </div>
 
           {/* Second user reply - moved to the right */}
           <div className="chat-message user-message" id="user-reply-2">
-            <div className="flex items-start justify-end w-full">
-              <div className="bg-orange-500 text-white p-3 rounded-lg chat-message-content">BEGIN</div>
+            <div className="grid grid-cols-[1fr_40px] gap-3 justify-items-end">
+              <div className="bg-orange-500 text-white p-3 rounded-lg justify-self-end">BEGIN</div>
               <div className="chat-avatar">
-                <Avatar className="h-8 w-8">
+                <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="User" />
                   <AvatarFallback>U</AvatarFallback>
                 </Avatar>
@@ -467,10 +514,12 @@ const ChatBot: React.FC = () => {
 
           {/* Typing animation for final message */}
           <div className="chat-message" id="typing10">
-            <div className="flex items-start">
+            <div className="grid grid-cols-[40px_1fr] gap-3">
               <div className="chat-avatar">
-                <Avatar className="h-8 w-8 bg-gray-200">
-                  <AvatarFallback>...</AvatarFallback>
+                <Avatar className="h-10 w-10 bg-gray-200">
+                  <AvatarFallback>
+                    {showEmoji ? getRandomEmoji() : "..."}
+                  </AvatarFallback>
                 </Avatar>
               </div>
               <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 chat-message-content">
@@ -483,17 +532,17 @@ const ChatBot: React.FC = () => {
 
           {/* Final message - Updated text and larger CLAIM NOW button */}
           <div className="chat-message" id="msg10">
-            <div className="flex items-start">
+            <div className="grid grid-cols-[40px_1fr] gap-3">
               <div id="avatar10" className="chat-avatar">
-                <Avatar className="h-8 w-8">
+                <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Avatar" />
                   <AvatarFallback>S</AvatarFallback>
                 </Avatar>
               </div>
               <div className="bg-gray-100 p-3 rounded-lg chat-message-content">
                 Thanks for your interest! Click the button below to start your review and claim your Sainsbury's gift card.
-                <div className="mt-4 flex justify-center">
-                  <Link to="/survey" className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full transition-colors text-xl shadow-lg animate-pulse">
+                <div className="mt-6 flex justify-center">
+                  <Link to="/survey" className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-10 rounded-full transition-colors text-2xl shadow-lg animate-pulse">
                     CLAIM NOW
                   </Link>
                 </div>
