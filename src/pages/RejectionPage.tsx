@@ -27,7 +27,7 @@ const RejectionPage = () => {
           <img 
             src="/lovable-uploads/58a9571b-a254-431a-94a9-3d4cdec07246.png" 
             alt="Tesco Review Program Logo" 
-            className={`h-20 md:h-24 mr-4 ${logoLoaded ? 'opacity-100' : 'opacity-0'}`}
+            className={`h-16 md:h-20 mr-4 ${logoLoaded ? 'opacity-100' : 'opacity-0'}`}
             style={{ transition: 'opacity 0.3s' }}
             loading="eager"
             fetchPriority="high"
@@ -35,7 +35,7 @@ const RejectionPage = () => {
             width="100"
             height="100"
           />
-          <h1 className="text-xl font-bold text-blue-700">Tesco Review Program</h1>
+          <h1 className="text-lg md:text-xl font-medium text-blue-700">Tesco Review Program</h1>
         </div>
       </header>
       
