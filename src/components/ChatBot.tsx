@@ -2,13 +2,16 @@
 import React, { useEffect } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const ChatBot: React.FC = () => {
   useEffect(() => {
     const startChat = () => {
-      const typingDurations = [1000, 1250, 1500, 1250]; // Durations for typing animations
-      const initialDelay = 500; // Initial delay before the first animation
+      // Fixed timing durations to ensure smooth animations
+      const typingDurations = [800, 800, 800, 800]; 
+      const initialDelay = 400;
 
+      // Staggered delays between messages for more natural conversation flow
       setTimeout(() => {
         showTyping("typing1", () => showMessage("msg1"), typingDurations[0]);
 
@@ -70,23 +73,23 @@ const ChatBot: React.FC = () => {
                                       hideAvatar("avatar9");
                                       showTyping("typing10", () => {
                                         showMessage("msg10"); // Display the final message with link
-                                      }, 1000); // Typing duration for the new agent response
-                                    }, 750); // Delay before the agent's final response
+                                      }, 800); // Typing duration for the new agent response
+                                    }, 600); // Delay before the agent's final response
                                   });
                                 }
-                              }, 1000); // Typing duration for the "BEGIN" button
-                            }, 1000); 
-                          }, 1000); 
-                        }, 1000); 
-                      }, 1000); 
-                    }, 1000);
-                  }, 1000);
-                }, 1000);
-              }, 2000);
-            }, 750);
+                              }, 800); // Typing duration for the "BEGIN" button
+                            }, 800); 
+                          }, 800); 
+                        }, 800); 
+                      }, 800); 
+                    }, 800);
+                  }, 800);
+                }, 800);
+              }, 800);
+            }, 600);
           });
         }
-      }, 2000);
+      }, 1500);
     };
 
     function showTyping(typingId: string, callback: () => void, duration: number) {
@@ -103,7 +106,7 @@ const ChatBot: React.FC = () => {
     function showMessage(msgId: string) {
       const message = document.getElementById(msgId);
       if (message) {
-        message.style.display = 'flex'; // Display the chat bubble
+        message.classList.add('flex'); // Display the chat bubble
       }
     }
 
@@ -121,18 +124,18 @@ const ChatBot: React.FC = () => {
   return (
     <div className="py-8 px-4 flex flex-col items-center">
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg overflow-hidden">
-        {/* Status indicator */}
-        <div className="bg-white p-2 flex items-center text-sm justify-center border-b">
+        {/* Status indicator with fixed height */}
+        <div className="bg-white p-2 flex items-center text-sm justify-center border-b h-10">
           <div className="flex items-center">
             <div className="w-3 h-3 bg-green-500 rounded-full mr-2 animate-pulse"></div>
             <span className="text-gray-700">Sainsburys Review Online</span>
           </div>
         </div>
         
-        {/* Chat container */}
-        <div className="p-4 flex flex-col space-y-4">
+        {/* Chat container with fixed height and scrolling */}
+        <div className="p-4 flex flex-col space-y-4 max-h-[500px] overflow-y-auto">
           {/* First message */}
-          <div className="chat-message" id="msg1" style={{display: 'none'}}>
+          <div className="chat-message" id="msg1">
             <div className="flex items-start">
               <div id="avatar1" className="shrink-0 mr-3">
                 <Avatar className="h-8 w-8">
@@ -145,7 +148,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Typing animation for the first message */}
-          <div className="chat-message" id="typing1" style={{display: 'none'}}>
+          <div className="chat-message" id="typing1">
             <div className="flex items-start">
               <div className="shrink-0 mr-3">
                 <Avatar className="h-8 w-8 bg-gray-200">
@@ -161,7 +164,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Second message */}
-          <div className="chat-message" id="msg2" style={{display: 'none'}}>
+          <div className="chat-message" id="msg2">
             <div className="flex items-start">
               <div id="avatar2" className="shrink-0 mr-3">
                 <Avatar className="h-8 w-8">
@@ -174,7 +177,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Typing animation for second message */}
-          <div className="chat-message" id="typing2" style={{display: 'none'}}>
+          <div className="chat-message" id="typing2">
             <div className="flex items-start">
               <div className="shrink-0 mr-3">
                 <Avatar className="h-8 w-8 bg-gray-200">
@@ -190,7 +193,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Third message */}
-          <div className="chat-message" id="msg3" style={{display: 'none'}}>
+          <div className="chat-message" id="msg3">
             <div className="flex items-start">
               <div id="avatar3" className="shrink-0 mr-3">
                 <Avatar className="h-8 w-8">
@@ -203,7 +206,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Typing animation for third message */}
-          <div className="chat-message" id="typing3" style={{display: 'none'}}>
+          <div className="chat-message" id="typing3">
             <div className="flex items-start">
               <div className="shrink-0 mr-3">
                 <Avatar className="h-8 w-8 bg-gray-200">
@@ -219,7 +222,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Fourth message with START button */}
-          <div className="chat-message" id="msg4" style={{display: 'none'}}>
+          <div className="chat-message" id="msg4">
             <div className="flex items-start">
               <div id="avatar4" className="shrink-0 mr-3">
                 <Avatar className="h-8 w-8">
@@ -232,8 +235,8 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* User reply */}
-          <div className="chat-message flex justify-end" id="user-reply" style={{display: 'none'}}>
-            <div className="flex items-start">
+          <div className="chat-message" id="user-reply">
+            <div className="flex items-start justify-end">
               <div className="bg-orange-500 text-white p-3 rounded-lg mr-3">Start</div>
               <Avatar className="h-8 w-8 shrink-0">
                 <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="User" />
@@ -243,7 +246,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Typing animation for fourth message */}
-          <div className="chat-message" id="typing4" style={{display: 'none'}}>
+          <div className="chat-message" id="typing4">
             <div className="flex items-start">
               <div className="shrink-0 mr-3">
                 <Avatar className="h-8 w-8 bg-gray-200">
@@ -259,7 +262,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Typing animation for agent response */}
-          <div className="chat-message" id="typing5" style={{display: 'none'}}>
+          <div className="chat-message" id="typing5">
             <div className="flex items-start">
               <div className="shrink-0 mr-3">
                 <Avatar className="h-8 w-8 bg-gray-200">
@@ -275,7 +278,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Fifth message */}
-          <div className="chat-message" id="msg5" style={{display: 'none'}}>
+          <div className="chat-message" id="msg5">
             <div className="flex items-start">
               <div id="avatar5" className="shrink-0 mr-3">
                 <Avatar className="h-8 w-8">
@@ -288,7 +291,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Typing animation for sixth message */}
-          <div className="chat-message" id="typing6" style={{display: 'none'}}>
+          <div className="chat-message" id="typing6">
             <div className="flex items-start">
               <div className="shrink-0 mr-3">
                 <Avatar className="h-8 w-8 bg-gray-200">
@@ -304,7 +307,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Sixth message */}
-          <div className="chat-message" id="msg6" style={{display: 'none'}}>
+          <div className="chat-message" id="msg6">
             <div className="flex items-start">
               <div id="avatar6" className="shrink-0 mr-3">
                 <Avatar className="h-8 w-8">
@@ -317,7 +320,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Typing animation for seventh message */}
-          <div className="chat-message" id="typing7" style={{display: 'none'}}>
+          <div className="chat-message" id="typing7">
             <div className="flex items-start">
               <div className="shrink-0 mr-3">
                 <Avatar className="h-8 w-8 bg-gray-200">
@@ -333,7 +336,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Seventh message */}
-          <div className="chat-message" id="msg7" style={{display: 'none'}}>
+          <div className="chat-message" id="msg7">
             <div className="flex items-start">
               <div id="avatar7" className="shrink-0 mr-3">
                 <Avatar className="h-8 w-8">
@@ -346,7 +349,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Typing animation for eighth message */}
-          <div className="chat-message" id="typing8" style={{display: 'none'}}>
+          <div className="chat-message" id="typing8">
             <div className="flex items-start">
               <div className="shrink-0 mr-3">
                 <Avatar className="h-8 w-8 bg-gray-200">
@@ -362,7 +365,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Eighth message */}
-          <div className="chat-message" id="msg8" style={{display: 'none'}}>
+          <div className="chat-message" id="msg8">
             <div className="flex items-start">
               <div id="avatar8" className="shrink-0 mr-3">
                 <Avatar className="h-8 w-8">
@@ -375,7 +378,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Typing animation for ninth message */}
-          <div className="chat-message" id="typing9" style={{display: 'none'}}>
+          <div className="chat-message" id="typing9">
             <div className="flex items-start">
               <div className="shrink-0 mr-3">
                 <Avatar className="h-8 w-8 bg-gray-200">
@@ -391,7 +394,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Ninth message with BEGIN button */}
-          <div className="chat-message" id="msg9" style={{display: 'none'}}>
+          <div className="chat-message" id="msg9">
             <div className="flex items-start">
               <div id="avatar9" className="shrink-0 mr-3">
                 <Avatar className="h-8 w-8">
@@ -404,8 +407,8 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Second user reply */}
-          <div className="chat-message flex justify-end" id="user-reply-2" style={{display: 'none'}}>
-            <div className="flex items-start">
+          <div className="chat-message" id="user-reply-2">
+            <div className="flex items-start justify-end">
               <div className="bg-orange-500 text-white p-3 rounded-lg mr-3">BEGIN</div>
               <Avatar className="h-8 w-8 shrink-0">
                 <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="User" />
@@ -415,7 +418,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Typing animation for final message */}
-          <div className="chat-message" id="typing10" style={{display: 'none'}}>
+          <div className="chat-message" id="typing10">
             <div className="flex items-start">
               <div className="shrink-0 mr-3">
                 <Avatar className="h-8 w-8 bg-gray-200">
@@ -431,7 +434,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Final message */}
-          <div className="chat-message" id="msg10" style={{display: 'none'}}>
+          <div className="chat-message" id="msg10">
             <div className="flex items-start">
               <div id="avatar10" className="shrink-0 mr-3">
                 <Avatar className="h-8 w-8">
@@ -442,9 +445,9 @@ const ChatBot: React.FC = () => {
               <div className="bg-gray-100 p-3 rounded-lg max-w-[85%]">
                 Thanks for your interest! Click the button below to complete your review and claim your Sainsbury's gift card.
                 <div className="mt-3">
-                  <a href="/survey" className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-full transition-colors">
+                  <Link to="/survey" className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-full transition-colors">
                     CLAIM NOW
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

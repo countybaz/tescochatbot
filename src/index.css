@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -100,7 +101,7 @@
   }
 }
 
-/* Animation styles */
+/* Animation styles with improved performance */
 .animate-pulse {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
@@ -123,41 +124,42 @@
   }
 }
 
-/* Chat message styling */
+/* Chat message styling - optimized */
 .chat-message {
   display: none;
   margin-bottom: 10px;
   width: 100%;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  will-change: opacity, transform; /* Optimize for animations */
 }
 
 .chat-message.flex {
   display: flex;
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* Ensure avatar doesn't stretch or push content */
-.avatar-container {
+/* Avatar container with fixed width to prevent text shifting */
+.shrink-0 {
   flex-shrink: 0;
+  width: 32px; /* Fixed width to prevent layout shifts */
 }
 
-/* Make sure buttons stand out */
+/* Ensure buttons stand out with efficient animations */
 #yes-btn, 
 #yes-btn-2 {
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  transform: translateZ(0); /* Hardware acceleration */
 }
 
 #yes-btn:hover, 
 #yes-btn-2:hover {
-  transform: scale(1.05);
+  transform: scale(1.05) translateZ(0);
 }
 
-/* Add smooth transition for message appearance */
-.chat-message {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.chat-message.flex {
-  opacity: 1;
-  transform: translateY(0);
+/* Optimize dot animation */
+.typing-indicator .dot {
+  will-change: transform;
 }
