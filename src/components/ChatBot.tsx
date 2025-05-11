@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -56,24 +55,24 @@ const ChatBot: React.FC = () => {
     }
   }, []);
 
-  // Show initial messages when component mounts
+  // Show initial messages when component mounts with slower timing
   useEffect(() => {
     // Only show the first two welcome messages and the start button initially
-    setTimeout(() => showMessage('welcome1'), 800);
-    setTimeout(() => showMessage('welcome2'), 1600);
-    setTimeout(() => showMessage('welcome3'), 2400);
-    setTimeout(() => showMessage('start-button'), 3200);
+    setTimeout(() => showMessage('welcome1'), 1000);
+    setTimeout(() => showMessage('welcome2'), 2500);
+    setTimeout(() => showMessage('welcome3'), 4000);
+    setTimeout(() => showMessage('start-button'), 5500);
   }, []);
 
   const handleStartClick = () => {
     // Add user's response
     showMessage('user-start');
     
-    // Show next set of messages with delays
-    setTimeout(() => showMessage('msg1'), 800);
-    setTimeout(() => showMessage('msg2'), 1600);
-    setTimeout(() => showMessage('msg3'), 2400);
-    setTimeout(() => showMessage('begin-button'), 3200);
+    // Show next set of messages with slower delays
+    setTimeout(() => showMessage('msg1'), 1200);
+    setTimeout(() => showMessage('msg2'), 3000);
+    setTimeout(() => showMessage('msg3'), 4800);
+    setTimeout(() => showMessage('begin-button'), 6000);
   };
 
   const handleBeginClick = () => {
@@ -84,7 +83,7 @@ const ChatBot: React.FC = () => {
     setTimeout(() => {
       showMessage('final-message');
       setShowClaimButton(true);
-    }, 800);
+    }, 1500);
   };
 
   return (
