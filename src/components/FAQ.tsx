@@ -73,7 +73,7 @@ const FAQ = () => {
               WHAT CAN I GET FROM THIS PROGRAM?
             </AccordionTrigger>
             <AccordionContent className="text-gray-700">
-              By participating in this Program, you can receive a £100 Tesco gift card. 
+              By participating in this Program, you can receive a Tesco gift card. 
               This can be used across all Tesco stores for groceries, clothing, and household items.
             </AccordionContent>
           </AccordionItem>
