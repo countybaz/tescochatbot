@@ -1,14 +1,11 @@
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 
 const ChatBot: React.FC = () => {
   // Reference for auto-scrolling
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const [showEmoji, setShowEmoji] = useState(false);
-  const emojiList = ["😀", "🤔", "✍️", "💭"];
 
   // Function to scroll to the bottom of the chat
   const scrollToBottom = () => {
@@ -22,10 +19,6 @@ const ChatBot: React.FC = () => {
 
   useEffect(() => {
     const startChat = () => {
-      // Fixed timing durations for smooth animations
-      const typingDurations = [2000, 2000, 2000, 2000]; 
-      const initialDelay = 400;
-
       // Set up mutation observer to detect new messages and scroll down
       const chatContainer = chatContainerRef.current;
       if (chatContainer) {
@@ -33,133 +26,102 @@ const ChatBot: React.FC = () => {
         observer.observe(chatContainer, { childList: true, subtree: true });
       }
 
-      // Helper function to show emoji typing
-      const showTypingWithEmoji = (typingId: string, callback: () => void, duration: number) => {
-        setShowEmoji(true);
-        const typing = document.getElementById(typingId);
-        if (typing) {
-          typing.style.display = 'flex'; // Show the typing animation
-          setTimeout(() => {
-            typing.style.display = 'none'; // Hide the typing animation
-            setShowEmoji(false);
-            callback(); // Display the corresponding chat bubble
-            scrollToBottom();
-          }, duration);
+      // Helper function to show messages sequentially
+      const showMessage = (msgId: string) => {
+        const message = document.getElementById(msgId);
+        if (message) {
+          message.classList.add('flex');
         }
       };
 
-      // Staggered delays between messages for more natural conversation flow
+      // Helper function to hide avatar after message display
+      const hideAvatar = (avatarId: string) => {
+        const avatar = document.getElementById(avatarId);
+        if (avatar) {
+          avatar.style.display = 'none';
+        }
+      };
+
+      // Display messages with fixed timing for smooth animations
+      setTimeout(() => showMessage("msg1"), 400);
+      
       setTimeout(() => {
-        showTypingWithEmoji("typing1", () => showMessage("msg1"), typingDurations[0]);
-
-        setTimeout(() => {
-          hideAvatar("avatar1");
-          showTypingWithEmoji("typing2", () => showMessage("msg2"), typingDurations[1]);
-        }, typingDurations[0] + initialDelay);
-
-        setTimeout(() => {
-          hideAvatar("avatar2");
-          showTypingWithEmoji("typing3", () => showMessage("msg3"), typingDurations[2]);
-        }, typingDurations[0] + typingDurations[1] + 2 * initialDelay);
-
-        setTimeout(() => {
-          hideAvatar("avatar3");
-          showTypingWithEmoji("typing4", () => showMessage("msg4"), typingDurations[3]);
-          scrollToBottom();
-        }, typingDurations[0] + typingDurations[1] + typingDurations[2] + 3 * initialDelay);
-      }, initialDelay);
+        hideAvatar("avatar1");
+        showMessage("msg2");
+      }, 1500);
+      
+      setTimeout(() => {
+        hideAvatar("avatar2");
+        showMessage("msg3");
+      }, 2600);
+      
+      setTimeout(() => {
+        hideAvatar("avatar3");
+        showMessage("msg4");
+        scrollToBottom();
+      }, 3700);
 
       // Setup event listeners for buttons after elements are rendered
       setTimeout(() => {
         const yesBtn = document.getElementById("yes-btn");
         if (yesBtn) {
           yesBtn.addEventListener("click", () => {
-            yesBtn.setAttribute("disabled", "true"); // Disable the first "Yes" button after click
+            yesBtn.setAttribute("disabled", "true");
             showMessage("user-reply");
             scrollToBottom();
 
             setTimeout(() => {
               hideAvatar("avatar4");
-              showTypingWithEmoji("typing5", () => {
-                showMessage("msg5"); // "Great! We value your opinions" message
+              showMessage("msg5");
+              scrollToBottom();
+              
+              setTimeout(() => {
+                hideAvatar("avatar5");
+                showMessage("msg6");
                 scrollToBottom();
-
+                
                 setTimeout(() => {
-                  hideAvatar("avatar5");
-                  showTypingWithEmoji("typing6", () => {
-                    showMessage("msg6"); // "This will only take 20 seconds" message
+                  hideAvatar("avatar6");
+                  showMessage("msg7");
+                  scrollToBottom();
+                  
+                  setTimeout(() => {
+                    hideAvatar("avatar7");
+                    showMessage("msg8");
                     scrollToBottom();
-
+                    
                     setTimeout(() => {
-                      hideAvatar("avatar6");
-                      showTypingWithEmoji("typing7", () => {
-                        showMessage("msg7"); // "Just a few simple questions ahead" message
-                        scrollToBottom();
+                      hideAvatar("avatar8");
+                      showMessage("msg9");
+                      scrollToBottom();
+                      
+                      const yesBtn2 = document.getElementById("yes-btn-2");
+                      if (yesBtn2) {
+                        yesBtn2.addEventListener("click", () => {
+                          yesBtn2.setAttribute("disabled", "true");
+                          showMessage("user-reply-2");
+                          scrollToBottom();
 
-                        setTimeout(() => {
-                          hideAvatar("avatar7");
-                          showTypingWithEmoji("typing8", () => {
-                            showMessage("msg8"); // "Click Begin Below To Start"
+                          setTimeout(() => {
+                            hideAvatar("avatar9");
+                            showMessage("msg10");
                             scrollToBottom();
-
-                            setTimeout(() => {
-                              hideAvatar("avatar8");
-                              showTypingWithEmoji("typing9", () => {
-                                showMessage("msg9"); // Display the "BEGIN" button
-                                scrollToBottom();
-                                const yesBtn2 = document.getElementById("yes-btn-2");
-                                if (yesBtn2) {
-                                  yesBtn2.addEventListener("click", () => {
-                                    yesBtn2.setAttribute("disabled", "true"); // Disable the second button after click
-                                    showMessage("user-reply-2"); // Second user reply
-                                    scrollToBottom();
-
-                                    setTimeout(() => {
-                                      hideAvatar("avatar9");
-                                      showTypingWithEmoji("typing10", () => {
-                                        showMessage("msg10"); // Display the final message with link
-                                        scrollToBottom();
-                                      }, 2000); // Typing duration for the new agent response
-                                    }, 600); // Delay before the agent's final response
-                                  });
-                                }
-                              }, 2000); // Typing duration for the "BEGIN" button
-                            }, 800); 
-                          }, 2000); 
-                        }, 800); 
-                      }, 2000); 
+                          }, 600);
+                        });
+                      }
                     }, 800);
-                  }, 2000);
+                  }, 800);
                 }, 800);
-              }, 2000);
+              }, 800);
             }, 600);
           });
         }
       }, 1500);
     };
 
-    function showMessage(msgId: string) {
-      const message = document.getElementById(msgId);
-      if (message) {
-        message.classList.add('flex'); // Display the chat bubble
-      }
-    }
-
-    function hideAvatar(avatarId: string) {
-      const avatar = document.getElementById(avatarId);
-      if (avatar) {
-        avatar.style.display = 'none'; // Hide the avatar
-      }
-    }
-
     // Start the chat sequence
     startChat();
-  }, [showEmoji]);
-
-  // Random emoji for typing indicator
-  const getRandomEmoji = () => {
-    return emojiList[Math.floor(Math.random() * emojiList.length)];
-  };
+  }, []);
 
   return (
     <div className="py-8 px-4 flex flex-col items-center">
@@ -193,24 +155,6 @@ const ChatBot: React.FC = () => {
             </div>
           </div>
 
-          {/* Typing animation for the first message */}
-          <div className="chat-message hidden" id="typing1">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 w-10">
-                <Avatar className="h-10 w-10 bg-gray-200">
-                  <AvatarFallback>
-                    {showEmoji ? getRandomEmoji() : "..."}
-                  </AvatarFallback>
-                </Avatar>
-              </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 min-w-[100px]">
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
-              </div>
-            </div>
-          </div>
-
           {/* Second message */}
           <div className="chat-message" id="msg2">
             <div className="flex items-start gap-3">
@@ -226,24 +170,6 @@ const ChatBot: React.FC = () => {
             </div>
           </div>
 
-          {/* Typing animation for second message */}
-          <div className="chat-message hidden" id="typing2">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 w-10">
-                <Avatar className="h-10 w-10 bg-gray-200">
-                  <AvatarFallback>
-                    {showEmoji ? getRandomEmoji() : "..."}
-                  </AvatarFallback>
-                </Avatar>
-              </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 min-w-[100px]">
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
-              </div>
-            </div>
-          </div>
-
           {/* Third message */}
           <div className="chat-message" id="msg3">
             <div className="flex items-start gap-3">
@@ -255,24 +181,6 @@ const ChatBot: React.FC = () => {
               </div>
               <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
                 <p className="text-base">Click Start to Begin your quick review journey.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Typing animation for third message */}
-          <div className="chat-message hidden" id="typing3">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 w-10">
-                <Avatar className="h-10 w-10 bg-gray-200">
-                  <AvatarFallback>
-                    {showEmoji ? getRandomEmoji() : "..."}
-                  </AvatarFallback>
-                </Avatar>
-              </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 min-w-[100px]">
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
               </div>
             </div>
           </div>
@@ -307,42 +215,6 @@ const ChatBot: React.FC = () => {
             </div>
           </div>
 
-          {/* Typing animation for fourth message */}
-          <div className="chat-message hidden" id="typing4">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 w-10">
-                <Avatar className="h-10 w-10 bg-gray-200">
-                  <AvatarFallback>
-                    {showEmoji ? getRandomEmoji() : "..."}
-                  </AvatarFallback>
-                </Avatar>
-              </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 min-w-[100px]">
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
-              </div>
-            </div>
-          </div>
-
-          {/* Typing animation for agent response */}
-          <div className="chat-message hidden" id="typing5">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 w-10">
-                <Avatar className="h-10 w-10 bg-gray-200">
-                  <AvatarFallback>
-                    {showEmoji ? getRandomEmoji() : "..."}
-                  </AvatarFallback>
-                </Avatar>
-              </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 min-w-[100px]">
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
-              </div>
-            </div>
-          </div>
-
           {/* Fifth message */}
           <div className="chat-message" id="msg5">
             <div className="flex items-start gap-3">
@@ -354,24 +226,6 @@ const ChatBot: React.FC = () => {
               </div>
               <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
                 <p className="text-base">Great! We value your opinions — your feedback helps us improve our products.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Typing animation for sixth message */}
-          <div className="chat-message hidden" id="typing6">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 w-10">
-                <Avatar className="h-10 w-10 bg-gray-200">
-                  <AvatarFallback>
-                    {showEmoji ? getRandomEmoji() : "..."}
-                  </AvatarFallback>
-                </Avatar>
-              </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 min-w-[100px]">
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
               </div>
             </div>
           </div>
@@ -391,24 +245,6 @@ const ChatBot: React.FC = () => {
             </div>
           </div>
 
-          {/* Typing animation for seventh message */}
-          <div className="chat-message hidden" id="typing7">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 w-10">
-                <Avatar className="h-10 w-10 bg-gray-200">
-                  <AvatarFallback>
-                    {showEmoji ? getRandomEmoji() : "..."}
-                  </AvatarFallback>
-                </Avatar>
-              </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 min-w-[100px]">
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
-              </div>
-            </div>
-          </div>
-
           {/* Seventh message */}
           <div className="chat-message" id="msg7">
             <div className="flex items-start gap-3">
@@ -424,24 +260,6 @@ const ChatBot: React.FC = () => {
             </div>
           </div>
 
-          {/* Typing animation for eighth message */}
-          <div className="chat-message hidden" id="typing8">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 w-10">
-                <Avatar className="h-10 w-10 bg-gray-200">
-                  <AvatarFallback>
-                    {showEmoji ? getRandomEmoji() : "..."}
-                  </AvatarFallback>
-                </Avatar>
-              </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 min-w-[100px]">
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
-              </div>
-            </div>
-          </div>
-
           {/* Eighth message */}
           <div className="chat-message" id="msg8">
             <div className="flex items-start gap-3">
@@ -453,24 +271,6 @@ const ChatBot: React.FC = () => {
               </div>
               <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
                 <p className="text-base">Click Begin Below To Start</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Typing animation for ninth message */}
-          <div className="chat-message hidden" id="typing9">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 w-10">
-                <Avatar className="h-10 w-10 bg-gray-200">
-                  <AvatarFallback>
-                    {showEmoji ? getRandomEmoji() : "..."}
-                  </AvatarFallback>
-                </Avatar>
-              </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 min-w-[100px]">
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
               </div>
             </div>
           </div>
@@ -501,24 +301,6 @@ const ChatBot: React.FC = () => {
               </div>
               <div className="bg-orange-500 text-white p-3 rounded-lg max-w-[80%]">
                 <p className="text-base">BEGIN</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Typing animation for final message */}
-          <div className="chat-message hidden" id="typing10">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 w-10">
-                <Avatar className="h-10 w-10 bg-gray-200">
-                  <AvatarFallback>
-                    {showEmoji ? getRandomEmoji() : "..."}
-                  </AvatarFallback>
-                </Avatar>
-              </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 min-w-[100px]">
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
-                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
               </div>
             </div>
           </div>

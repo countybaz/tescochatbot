@@ -115,30 +115,20 @@
   }
 }
 
-@keyframes bounce {
-  0%, 80%, 100% { 
-    transform: translateY(0);
-  }
-  40% { 
-    transform: translateY(-5px);
-  }
-}
-
 /* Chat message styling - optimized */
 .chat-message {
   display: none;
   margin-bottom: 10px;
   width: 100%;
   opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  will-change: opacity, transform; /* Optimize for animations */
+  transform: translateY(0);
+  transition: opacity 0.2s ease;
+  will-change: opacity;
 }
 
 .chat-message.flex {
   display: flex;
   opacity: 1;
-  transform: translateY(0);
 }
 
 /* Ensure buttons stand out with efficient animations */
