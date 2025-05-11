@@ -51,9 +51,9 @@ const FAQ = () => {
           <span className="sr-only">FAQ</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-full max-w-md rounded-xl border border-orange-100 shadow-xl bg-white/95 backdrop-blur-sm">
+      <DialogContent className="w-[95vw] max-w-md mx-auto rounded-xl border border-orange-100 shadow-xl bg-white/95 backdrop-blur-sm">
         <DialogHeader className="mb-4">
-          <DialogTitle className="text-center text-2xl bg-gradient-to-r from-orange-600 to-orange-800 bg-clip-text text-transparent font-bold">
+          <DialogTitle className="text-center text-xl sm:text-2xl bg-gradient-to-r from-orange-600 to-orange-800 bg-clip-text text-transparent font-bold">
             Frequently Asked Questions
           </DialogTitle>
         </DialogHeader>

@@ -9,19 +9,21 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-b from-orange-50 to-orange-100">
       <SurveyProvider>
         <header className="shadow-sm py-2 bg-white h-16 flex items-center">
-          <div className="container mx-auto px-4 flex flex-col items-center">
-            <div className="flex items-center justify-center mb-1">
-              <img 
-                src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" 
-                alt="Sainsbury's Review Program Logo" 
-                className="h-12 w-auto" 
-                width="120" 
-                height="120"
-              />
-              <h1 className="text-xl font-bold text-orange-600 ml-3">Sainsbury's Review Program</h1>
-            </div>
-            <div className="flex justify-center">
-              <FAQ />
+          <div className="container mx-auto px-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <img 
+                  src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" 
+                  alt="Sainsbury's Review Program Logo" 
+                  className="h-10 w-auto sm:h-12" 
+                  width="120" 
+                  height="120"
+                />
+                <h1 className="text-lg sm:text-xl font-bold text-orange-600 ml-3">Sainsbury's Review Program</h1>
+              </div>
+              <div className="flex items-center">
+                <FAQ />
+              </div>
             </div>
           </div>
         </header>

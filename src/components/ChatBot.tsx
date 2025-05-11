@@ -3,8 +3,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { User, Bot } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const ChatBot: React.FC = () => {
+  const isMobile = useIsMobile();
   // Reference for auto-scrolling
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const [messagesShown, setMessagesShown] = useState<Record<string, boolean>>({});
@@ -33,10 +35,10 @@ const ChatBot: React.FC = () => {
     }
 
     // Display initial messages with slower timing
-    setTimeout(() => showMessage("msg1"), 1000);
-    setTimeout(() => showMessage("msg2"), 2800);
-    setTimeout(() => showMessage("msg3"), 4500);
-    setTimeout(() => showMessage("msg4"), 6000);
+    setTimeout(() => showMessage("msg1"), 1500);
+    setTimeout(() => showMessage("msg2"), 3500);
+    setTimeout(() => showMessage("msg3"), 5500);
+    setTimeout(() => showMessage("msg4"), 7500);
   }, []);
 
   const handleStartClick = () => {
@@ -56,11 +58,11 @@ const ChatBot: React.FC = () => {
             
             setTimeout(() => {
               showMessage("msg9");
-            }, 1400);
-          }, 1400);
-        }, 1400);
-      }, 1400);
-    }, 1200);
+            }, 2000);
+          }, 2000);
+        }, 2000);
+      }, 2000);
+    }, 1500);
   };
 
   const handleBeginClick = () => {
@@ -68,11 +70,11 @@ const ChatBot: React.FC = () => {
     
     setTimeout(() => {
       showMessage("msg10");
-    }, 1200);
+    }, 1500);
   };
 
   return (
-    <div className="py-8 px-4 flex flex-col items-center">
+    <div className="py-4 sm:py-8 px-2 sm:px-4 flex flex-col items-center">
       <div className="w-full max-w-2xl bg-white rounded-lg shadow-lg overflow-hidden">
         {/* Status indicator with bot avatar */}
         <div className="bg-white p-2 flex items-center text-sm justify-between border-b h-14">
@@ -94,11 +96,11 @@ const ChatBot: React.FC = () => {
         {/* Chat container with fixed height and scrolling */}
         <div 
           ref={chatContainerRef} 
-          className="p-4 flex flex-col space-y-4 h-[500px] overflow-y-auto"
+          className="p-3 sm:p-4 flex flex-col space-y-4 h-[400px] sm:h-[500px] overflow-y-auto"
           style={{ scrollBehavior: 'smooth' }}
         >
           {/* Bot messages */}
-          <div className={`flex items-start ${messagesShown["msg1"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
+          <div className={`chat-message flex items-start ${messagesShown["msg1"] ? "flex" : ""}`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
               <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
@@ -108,7 +110,7 @@ const ChatBot: React.FC = () => {
             </div>
           </div>
 
-          <div className={`flex items-start ${messagesShown["msg2"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
+          <div className={`chat-message flex items-start ${messagesShown["msg2"] ? "flex" : ""}`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
               <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
@@ -118,7 +120,7 @@ const ChatBot: React.FC = () => {
             </div>
           </div>
 
-          <div className={`flex items-start ${messagesShown["msg3"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
+          <div className={`chat-message flex items-start ${messagesShown["msg3"] ? "flex" : ""}`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
               <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
@@ -128,13 +130,14 @@ const ChatBot: React.FC = () => {
             </div>
           </div>
 
-          <div className={`flex items-start ${messagesShown["msg4"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
+          <div className={`chat-message flex items-start ${messagesShown["msg4"] ? "flex" : ""}`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
               <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
             </Avatar>
             <div>
               <Button 
+                id="yes-btn"
                 onClick={handleStartClick} 
                 variant="default" 
                 className="bg-orange-500 hover:bg-orange-600"
@@ -145,7 +148,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* User reply - aligned to the right */}
-          <div className={`flex justify-end ${messagesShown["user-reply"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
+          <div className={`chat-message justify-end ${messagesShown["user-reply"] ? "flex" : ""} transition-opacity duration-300`}>
             <div className="bg-orange-500 text-white p-3 rounded-lg max-w-[80%]">
               <p className="text-base">Start</p>
             </div>
@@ -155,7 +158,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* More bot messages */}
-          <div className={`flex items-start ${messagesShown["msg5"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
+          <div className={`chat-message flex items-start ${messagesShown["msg5"] ? "flex" : ""}`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
               <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
@@ -165,7 +168,7 @@ const ChatBot: React.FC = () => {
             </div>
           </div>
 
-          <div className={`flex items-start ${messagesShown["msg6"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
+          <div className={`chat-message flex items-start ${messagesShown["msg6"] ? "flex" : ""}`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
               <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
@@ -175,7 +178,7 @@ const ChatBot: React.FC = () => {
             </div>
           </div>
 
-          <div className={`flex items-start ${messagesShown["msg7"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
+          <div className={`chat-message flex items-start ${messagesShown["msg7"] ? "flex" : ""}`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
               <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
@@ -185,7 +188,7 @@ const ChatBot: React.FC = () => {
             </div>
           </div>
 
-          <div className={`flex items-start ${messagesShown["msg8"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
+          <div className={`chat-message flex items-start ${messagesShown["msg8"] ? "flex" : ""}`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
               <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
@@ -195,13 +198,14 @@ const ChatBot: React.FC = () => {
             </div>
           </div>
 
-          <div className={`flex items-start ${messagesShown["msg9"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
+          <div className={`chat-message flex items-start ${messagesShown["msg9"] ? "flex" : ""}`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
               <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
             </Avatar>
             <div>
               <Button 
+                id="yes-btn-2"
                 onClick={handleBeginClick}
                 variant="default" 
                 className="bg-orange-500 hover:bg-orange-600"
@@ -212,7 +216,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Second user reply - aligned to the right */}
-          <div className={`flex justify-end ${messagesShown["user-reply-2"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
+          <div className={`chat-message justify-end ${messagesShown["user-reply-2"] ? "flex" : ""} transition-opacity duration-300`}>
             <div className="bg-orange-500 text-white p-3 rounded-lg max-w-[80%]">
               <p className="text-base">BEGIN</p>
             </div>
@@ -222,7 +226,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Final message with claim button */}
-          <div className={`flex items-start ${messagesShown["msg10"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
+          <div className={`chat-message flex items-start ${messagesShown["msg10"] ? "flex" : ""}`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
               <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
@@ -230,7 +234,7 @@ const ChatBot: React.FC = () => {
             <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
               <p className="text-base">Thanks for your interest! Click the button below to start your review and claim your Sainsbury's gift card.</p>
               <div className="mt-6 flex justify-center">
-                <a href="https://www.tapplink.co/21468/1084/chatbot" target="_blank" rel="noopener noreferrer" className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-10 rounded-full transition-colors text-2xl shadow-lg animate-pulse">
+                <a href="https://www.tapplink.co/21468/1084/chatbot" target="_blank" rel="noopener noreferrer" className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 sm:py-4 sm:px-10 rounded-full transition-colors text-lg sm:text-2xl shadow-lg animate-pulse">
                   CLAIM NOW
                 </a>
               </div>
