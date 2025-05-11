@@ -33,10 +33,10 @@ const ChatBot: React.FC = () => {
     }
 
     // Display initial messages with slower timing
-    setTimeout(() => showMessage("msg1"), 800);
-    setTimeout(() => showMessage("msg2"), 2200);
-    setTimeout(() => showMessage("msg3"), 3600);
-    setTimeout(() => showMessage("msg4"), 5000);
+    setTimeout(() => showMessage("msg1"), 1000);
+    setTimeout(() => showMessage("msg2"), 2800);
+    setTimeout(() => showMessage("msg3"), 4500);
+    setTimeout(() => showMessage("msg4"), 6000);
   }, []);
 
   const handleStartClick = () => {
@@ -56,11 +56,11 @@ const ChatBot: React.FC = () => {
             
             setTimeout(() => {
               showMessage("msg9");
-            }, 1200);
-          }, 1200);
-        }, 1200);
-      }, 1200);
-    }, 1000);
+            }, 1400);
+          }, 1400);
+        }, 1400);
+      }, 1400);
+    }, 1200);
   };
 
   const handleBeginClick = () => {
@@ -68,7 +68,7 @@ const ChatBot: React.FC = () => {
     
     setTimeout(() => {
       showMessage("msg10");
-    }, 1000);
+    }, 1200);
   };
 
   return (
@@ -78,7 +78,7 @@ const ChatBot: React.FC = () => {
         <div className="bg-white p-2 flex items-center text-sm justify-between border-b h-14">
           <div className="flex items-center">
             <Avatar className="h-8 w-8 mr-2">
-              <AvatarImage src="https://images.unsplash.com/photo-1501286353178-1ec881214838?auto=format&fit=crop&w=256&q=80" alt="Bot avatar" />
+              <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
@@ -100,6 +100,7 @@ const ChatBot: React.FC = () => {
           {/* Bot messages */}
           <div className={`flex items-start ${messagesShown["msg1"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
+              <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
             </Avatar>
             <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
@@ -109,6 +110,7 @@ const ChatBot: React.FC = () => {
 
           <div className={`flex items-start ${messagesShown["msg2"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
+              <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
             </Avatar>
             <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
@@ -118,6 +120,7 @@ const ChatBot: React.FC = () => {
 
           <div className={`flex items-start ${messagesShown["msg3"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
+              <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
             </Avatar>
             <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
@@ -127,6 +130,7 @@ const ChatBot: React.FC = () => {
 
           <div className={`flex items-start ${messagesShown["msg4"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
+              <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
             </Avatar>
             <div>
@@ -153,6 +157,7 @@ const ChatBot: React.FC = () => {
           {/* More bot messages */}
           <div className={`flex items-start ${messagesShown["msg5"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
+              <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
             </Avatar>
             <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
@@ -162,6 +167,7 @@ const ChatBot: React.FC = () => {
 
           <div className={`flex items-start ${messagesShown["msg6"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
+              <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
             </Avatar>
             <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
@@ -171,6 +177,7 @@ const ChatBot: React.FC = () => {
 
           <div className={`flex items-start ${messagesShown["msg7"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
+              <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
             </Avatar>
             <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
@@ -180,6 +187,7 @@ const ChatBot: React.FC = () => {
 
           <div className={`flex items-start ${messagesShown["msg8"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
+              <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
             </Avatar>
             <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
@@ -189,6 +197,7 @@ const ChatBot: React.FC = () => {
 
           <div className={`flex items-start ${messagesShown["msg9"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
+              <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
             </Avatar>
             <div>
@@ -215,6 +224,7 @@ const ChatBot: React.FC = () => {
           {/* Final message with claim button */}
           <div className={`flex items-start ${messagesShown["msg10"] ? "opacity-100" : "opacity-0 hidden"} transition-opacity duration-300`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
+              <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
             </Avatar>
             <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
