@@ -141,25 +141,6 @@
   transform: translateY(0);
 }
 
-/* Avatar container with fixed width to prevent text shifting */
-.chat-avatar {
-  flex-shrink: 0;
-  width: 40px; /* Fixed width to prevent layout shifts */
-  display: flex;
-  justify-content: center;
-}
-
-/* Message content container */
-.chat-message-content {
-  width: 100%;
-  word-break: break-word;
-}
-
-/* User message styling */
-.user-message .chat-message-content {
-  justify-content: flex-end;
-}
-
 /* Ensure buttons stand out with efficient animations */
 #yes-btn, 
 #yes-btn-2 {
@@ -177,37 +158,15 @@
   will-change: transform;
 }
 
-/* Fix text formatting in chat messages */
-.chat-message-content span {
-  display: inline-block;
-  white-space: normal;
-  width: 100%;
-}
-
 /* Mobile optimizations */
 @media (max-width: 640px) {
   .chat-message {
     margin-bottom: 8px;
   }
   
-  /* Make sure grid columns maintain fixed sizes on mobile */
-  .grid-cols-\[40px_1fr\] {
-    grid-template-columns: 40px 1fr !important;
-  }
-
-  .grid-cols-\[1fr_40px\] {
-    grid-template-columns: 1fr 40px !important;
-  }
-  
   /* Make the claim now button more prominent on mobile */
   #msg10 a {
     font-size: 1.25rem;
     padding: 0.75rem 1.5rem;
-  }
-
-  /* Ensure text doesn't wrap awkwardly on mobile */
-  .chat-message-content span {
-    font-size: 14px;
-    line-height: 1.4;
   }
 }
