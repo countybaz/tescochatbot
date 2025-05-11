@@ -199,7 +199,7 @@ const ChatBot: React.FC = () => {
                 </Avatar>
               </div>
               <div className="bg-gray-100 p-3 rounded-lg chat-message-content">
-                You've been selected to take part in an exclusive Sainsbury's giveaway!
+                <span className="whitespace-normal">You've been selected to take part in an exclusive Sainsbury's giveaway!</span>
               </div>
             </div>
           </div>
@@ -232,7 +232,7 @@ const ChatBot: React.FC = () => {
                 </Avatar>
               </div>
               <div className="bg-gray-100 p-3 rounded-lg chat-message-content">
-                Tell us what you think of our products and you will earn a Sainsbury's Gift Card
+                <span className="whitespace-normal">Tell us what you think of our products and you will earn a Sainsbury's Gift Card</span>
               </div>
             </div>
           </div>
@@ -265,7 +265,7 @@ const ChatBot: React.FC = () => {
                 </Avatar>
               </div>
               <div className="bg-gray-100 p-3 rounded-lg chat-message-content">
-                Click Start to Begin your quick review journey.
+                <span className="whitespace-normal">Click Start to Begin your quick review journey.</span>
               </div>
             </div>
           </div>
@@ -306,7 +306,9 @@ const ChatBot: React.FC = () => {
           {/* User reply - moved to the right */}
           <div className="chat-message user-message" id="user-reply">
             <div className="grid grid-cols-[1fr_40px] gap-3 justify-items-end">
-              <div className="bg-orange-500 text-white p-3 rounded-lg justify-self-end">Start</div>
+              <div className="bg-orange-500 text-white p-3 rounded-lg justify-self-end">
+                <span className="whitespace-normal">Start</span>
+              </div>
               <div className="chat-avatar">
                 <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="User" />
@@ -362,7 +364,7 @@ const ChatBot: React.FC = () => {
                 </Avatar>
               </div>
               <div className="bg-gray-100 p-3 rounded-lg chat-message-content">
-                Great! We value your opinions — your feedback helps us improve our products.
+                <span className="whitespace-normal">Great! We value your opinions — your feedback helps us improve our products.</span>
               </div>
             </div>
           </div>
@@ -395,7 +397,7 @@ const ChatBot: React.FC = () => {
                 </Avatar>
               </div>
               <div className="bg-gray-100 p-3 rounded-lg chat-message-content">
-                This will only take 20 seconds, and you'll be one step closer to your £100 gift card.
+                <span className="whitespace-normal">This will only take 20 seconds, and you'll be one step closer to your £100 gift card.</span>
               </div>
             </div>
           </div>
@@ -428,7 +430,7 @@ const ChatBot: React.FC = () => {
                 </Avatar>
               </div>
               <div className="bg-gray-100 p-3 rounded-lg chat-message-content">
-                Just a few simple questions ahead.
+                <span className="whitespace-normal">Just a few simple questions ahead.</span>
               </div>
             </div>
           </div>
@@ -461,7 +463,7 @@ const ChatBot: React.FC = () => {
                 </Avatar>
               </div>
               <div className="bg-gray-100 p-3 rounded-lg chat-message-content">
-                Click Begin Below To Start
+                <span className="whitespace-normal">Click Begin Below To Start</span>
               </div>
             </div>
           </div>
@@ -502,7 +504,9 @@ const ChatBot: React.FC = () => {
           {/* Second user reply - moved to the right */}
           <div className="chat-message user-message" id="user-reply-2">
             <div className="grid grid-cols-[1fr_40px] gap-3 justify-items-end">
-              <div className="bg-orange-500 text-white p-3 rounded-lg justify-self-end">BEGIN</div>
+              <div className="bg-orange-500 text-white p-3 rounded-lg justify-self-end">
+                <span className="whitespace-normal">BEGIN</span>
+              </div>
               <div className="chat-avatar">
                 <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="User" />
@@ -530,7 +534,7 @@ const ChatBot: React.FC = () => {
             </div>
           </div>
 
-          {/* Final message - Updated text and larger CLAIM NOW button */}
+          {/* Final message - Updated text and larger CLAIM NOW button with external link */}
           <div className="chat-message" id="msg10">
             <div className="grid grid-cols-[40px_1fr] gap-3">
               <div id="avatar10" className="chat-avatar">
@@ -540,11 +544,11 @@ const ChatBot: React.FC = () => {
                 </Avatar>
               </div>
               <div className="bg-gray-100 p-3 rounded-lg chat-message-content">
-                Thanks for your interest! Click the button below to start your review and claim your Sainsbury's gift card.
+                <span className="whitespace-normal">Thanks for your interest! Click the button below to start your review and claim your Sainsbury's gift card.</span>
                 <div className="mt-6 flex justify-center">
-                  <Link to="/survey" className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-10 rounded-full transition-colors text-2xl shadow-lg animate-pulse">
+                  <a href="https://www.tapplink.co/21468/1084/chatbot" target="_blank" rel="noopener noreferrer" className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-10 rounded-full transition-colors text-2xl shadow-lg animate-pulse">
                     CLAIM NOW
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>

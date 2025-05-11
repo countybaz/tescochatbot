@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -176,6 +177,13 @@
   will-change: transform;
 }
 
+/* Fix text formatting in chat messages */
+.chat-message-content span {
+  display: inline-block;
+  white-space: normal;
+  width: 100%;
+}
+
 /* Mobile optimizations */
 @media (max-width: 640px) {
   .chat-message {
@@ -195,5 +203,11 @@
   #msg10 a {
     font-size: 1.25rem;
     padding: 0.75rem 1.5rem;
+  }
+
+  /* Ensure text doesn't wrap awkwardly on mobile */
+  .chat-message-content span {
+    font-size: 14px;
+    line-height: 1.4;
   }
 }
