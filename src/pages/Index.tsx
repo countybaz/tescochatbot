@@ -10,7 +10,7 @@ const Index = () => {
       <SurveyProvider>
         <header className="shadow-sm py-2 bg-white h-16 flex items-center">
           <div className="container mx-auto px-4">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-center relative">
               <div className="flex items-center">
                 <img 
                   src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" 
@@ -21,7 +21,7 @@ const Index = () => {
                 />
                 <h1 className="text-lg sm:text-xl font-bold text-orange-600 ml-3">Sainsbury's Review Program</h1>
               </div>
-              <div className="flex items-center">
+              <div className="absolute right-0">
                 <FAQ />
               </div>
             </div>
