@@ -27,11 +27,11 @@ const FAQ = () => {
           variant="ghost" 
           size="icon" 
           className={cn(
-            "rounded-full shadow-lg transition-all duration-300 relative overflow-hidden",
+            "rounded-full shadow-md transition-all duration-300 relative overflow-hidden",
             "bg-gradient-to-br from-orange-500 to-orange-700 hover:from-orange-600 hover:to-orange-800",
-            "border-2 border-white/20"
+            "border border-white/20"
           )}
-          style={{ width: "3.5rem", height: "3.5rem" }}
+          style={{ width: "2.5rem", height: "2.5rem" }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
@@ -45,7 +45,7 @@ const FAQ = () => {
               "text-white transition-all duration-300",
               isHovered ? "scale-110" : "scale-100"
             )} 
-            size={42}
+            size={22}
             strokeWidth={1.8}
           />
           <span className="sr-only">FAQ</span>

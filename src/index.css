@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -142,9 +141,26 @@
 }
 
 /* Avatar container with fixed width to prevent text shifting */
-.shrink-0 {
+.chat-avatar {
   flex-shrink: 0;
   width: 32px; /* Fixed width to prevent layout shifts */
+  margin-right: 12px;
+}
+
+/* Message content container */
+.chat-message-content {
+  max-width: calc(100% - 44px); /* Account for avatar width + margin */
+}
+
+/* User message styling */
+.user-message {
+  justify-content: flex-end;
+}
+
+.user-message .chat-avatar {
+  order: 2;
+  margin-right: 0;
+  margin-left: 12px;
 }
 
 /* Ensure buttons stand out with efficient animations */
@@ -168,6 +184,24 @@
 @media (max-width: 640px) {
   .chat-message {
     margin-bottom: 8px;
+  }
+  
+  /* Fixed width for mobile message avatars */
+  .chat-avatar {
+    width: 28px;
+    min-width: 28px; /* Ensure fixed width on mobile */
+    margin-right: 8px;
+  }
+  
+  /* Adjust user message avatar spacing for mobile */
+  .user-message .chat-avatar {
+    margin-right: 0;
+    margin-left: 8px;
+  }
+  
+  /* Ensure message text doesn't overflow on mobile */
+  .chat-message-content {
+    max-width: calc(100% - 36px); /* Account for avatar width + margin on mobile */
   }
   
   /* Make the claim now button more prominent on mobile */

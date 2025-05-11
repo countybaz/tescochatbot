@@ -9,24 +9,26 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-b from-orange-50 to-orange-100">
       <SurveyProvider>
         <header className="shadow-sm py-2 bg-white h-16 flex items-center">
-          <div className="container mx-auto px-4 flex items-center justify-center">
-            <img 
-              src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" 
-              alt="Sainsbury's Review Program Logo" 
-              className="h-12 w-auto mr-3"
-              width="100" 
-              height="100"
-            />
-            <h1 className="text-xl font-bold text-orange-600">Sainsbury's Review Program</h1>
+          <div className="container mx-auto px-4 flex items-center justify-between">
+            <div className="flex items-center">
+              <img 
+                src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" 
+                alt="Sainsbury's Review Program Logo" 
+                className="h-14 w-auto mr-3" 
+                width="110" 
+                height="110"
+              />
+              <h1 className="text-xl font-bold text-orange-600">Sainsbury's Review Program</h1>
+            </div>
+            {/* Move FAQ to the top right */}
+            <div className="z-50">
+              <FAQ />
+            </div>
           </div>
         </header>
         
         <main className="container mx-auto relative">
           <ChatBot />
-          {/* Fixed position FAQ button for mobile and desktop */}
-          <div className="fixed bottom-6 right-6 z-50">
-            <FAQ />
-          </div>
         </main>
       </SurveyProvider>
 
