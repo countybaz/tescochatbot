@@ -16,11 +16,11 @@ const Index = () => {
                 <img 
                   src="/lovable-uploads/58a9571b-a254-431a-94a9-3d4cdec07246.png" 
                   alt="Tesco Review Program Logo" 
-                  className="h-10 w-auto sm:h-12" 
+                  className="h-8 w-auto sm:h-12" 
                   width="120" 
                   height="120"
                 />
-                <h1 className="text-lg sm:text-xl font-bold text-blue-700 ml-3">Tesco Review Program</h1>
+                <h1 className="text-sm sm:text-xl font-bold text-blue-700 ml-1 sm:ml-3">Tesco Review Program</h1>
               </div>
               <div className="flex-grow flex justify-end">
                 <FAQ />

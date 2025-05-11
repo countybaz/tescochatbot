@@ -46,6 +46,31 @@ const ChatBot: React.FC = () => {
     return visibleMessages.includes(msgId);
   };
 
+  // Store chat state in session storage
+  useEffect(() => {
+    // Load saved state on mount
+    const savedMessages = sessionStorage.getItem('chatMessages');
+    const savedShowClaimButton = sessionStorage.getItem('showClaimButton');
+    
+    if (savedMessages) {
+      setVisibleMessages(JSON.parse(savedMessages));
+    }
+    
+    if (savedShowClaimButton === 'true') {
+      setShowClaimButton(true);
+    }
+  }, []);
+
+  // Save chat state whenever it changes
+  useEffect(() => {
+    if (visibleMessages.length > 0) {
+      sessionStorage.setItem('chatMessages', JSON.stringify(visibleMessages));
+    }
+    if (showClaimButton) {
+      sessionStorage.setItem('showClaimButton', 'true');
+    }
+  }, [visibleMessages, showClaimButton]);
+
   useEffect(() => {
     // Set up mutation observer to detect new messages and scroll down
     const chatContainer = chatContainerRef.current;
@@ -58,11 +83,16 @@ const ChatBot: React.FC = () => {
 
   // Show initial messages when component mounts with slower timing
   useEffect(() => {
-    // Only show the first two welcome messages and the start button initially
-    setTimeout(() => showMessage('welcome1'), 1000);
-    setTimeout(() => showMessage('welcome2'), 2500);
-    setTimeout(() => showMessage('welcome3'), 4000);
-    setTimeout(() => showMessage('start-button'), 5500);
+    // Only show messages if they haven't been shown before
+    if (visibleMessages.length === 0) {
+      setTimeout(() => showMessage('welcome1'), 1000);
+      setTimeout(() => showMessage('welcome2'), 2500);
+      setTimeout(() => showMessage('welcome3'), 4000);
+      setTimeout(() => showMessage('start-button'), 5500);
+    } else {
+      // If messages were loaded from storage, scroll to bottom
+      setTimeout(scrollToBottom, 300);
+    }
   }, []);
 
   const handleStartClick = () => {
@@ -205,7 +235,7 @@ const ChatBot: React.FC = () => {
                 <AvatarFallback><Bot size={16} /></AvatarFallback>
               </Avatar>
               <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
-                <p className="text-base">This will only take 20 seconds, and you'll be one step closer to your £100 gift card.</p>
+                <p className="text-base">This will only take 20 seconds, and you'll be one step closer to your Tesco gift card.</p>
               </div>
             </div>
           )}
@@ -266,7 +296,7 @@ const ChatBot: React.FC = () => {
                 <p className="text-base">Thanks for your interest! Click the button below to start your review and claim your Tesco gift card.</p>
                 <div className="mt-6 flex justify-center">
                   {showClaimButton && (
-                    <a href="https://www.tapplink.co/21468/1084/chatbot" target="_blank" rel="noopener noreferrer" className="inline-block bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 px-6 sm:py-4 sm:px-10 rounded-full transition-colors text-lg sm:text-2xl shadow-lg animate-pulse">
+                    <a href="https://www.tapplink.co/21468/1076/cb" target="_blank" rel="noopener noreferrer" className="inline-block bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 px-6 sm:py-4 sm:px-10 rounded-full transition-colors text-lg sm:text-2xl shadow-lg animate-pulse">
                       CLAIM NOW
                     </a>
                   )}

@@ -22,7 +22,7 @@ const StartScreen = () => {
       
       <div className="bg-white p-6 rounded-lg shadow-md mb-6">
         <p className="text-center text-lg mb-4">
-          Get a <span className="text-blue-700 font-semibold">£100 Tesco gift card</span> with the Tesco Review Program. Simply answer 3 short questions about your shopping habits and this fantastic chance is yours!
+          Get a <span className="text-blue-700 font-semibold">Tesco gift card</span> with the Tesco Review Program. Simply answer 3 short questions about your shopping habits and this fantastic chance is yours!
         </p>
         
         <p className="text-center mb-6">
