@@ -8,7 +8,8 @@ import { useIsMobile } from "@/hooks/use-mobile";
 // Define message types for better organization
 type MessageId = 
   | 'welcome1' 
-  | 'welcome2' 
+  | 'welcome2'
+  | 'welcome3'
   | 'start-button'
   | 'user-start'
   | 'msg1'
@@ -53,9 +54,6 @@ const ChatBot: React.FC = () => {
       observer.observe(chatContainer, { childList: true, subtree: true });
       return () => observer.disconnect();
     }
-
-    // Only show the initial welcome messages on page load
-    // No setTimeout here to avoid showing messages automatically
   }, []);
 
   // Show initial messages when component mounts
@@ -63,7 +61,8 @@ const ChatBot: React.FC = () => {
     // Only show the first two welcome messages and the start button initially
     setTimeout(() => showMessage('welcome1'), 800);
     setTimeout(() => showMessage('welcome2'), 1600);
-    setTimeout(() => showMessage('start-button'), 2400);
+    setTimeout(() => showMessage('welcome3'), 2400);
+    setTimeout(() => showMessage('start-button'), 3200);
   }, []);
 
   const handleStartClick = () => {
@@ -116,7 +115,7 @@ const ChatBot: React.FC = () => {
         >
           {/* Welcome message 1 - Only shown on initial load */}
           {isMessageVisible('welcome1') && (
-            <div className="chat-message flex items-start">
+            <div className="chat-message flex items-start animate-fade-in">
               <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
                 <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
                 <AvatarFallback><Bot size={16} /></AvatarFallback>
@@ -129,7 +128,7 @@ const ChatBot: React.FC = () => {
 
           {/* Welcome message 2 - Only shown on initial load */}
           {isMessageVisible('welcome2') && (
-            <div className="chat-message flex items-start">
+            <div className="chat-message flex items-start animate-fade-in">
               <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
                 <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
                 <AvatarFallback><Bot size={16} /></AvatarFallback>
@@ -140,9 +139,22 @@ const ChatBot: React.FC = () => {
             </div>
           )}
 
+          {/* Welcome message 3 - New message that was requested */}
+          {isMessageVisible('welcome3') && (
+            <div className="chat-message flex items-start animate-fade-in">
+              <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
+                <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
+                <AvatarFallback><Bot size={16} /></AvatarFallback>
+              </Avatar>
+              <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
+                <p className="text-base">Click Start to Begin your quick review journey.</p>
+              </div>
+            </div>
+          )}
+
           {/* START button - Only shown on initial load */}
           {isMessageVisible('start-button') && (
-            <div className="chat-message flex items-start">
+            <div className="chat-message flex items-start animate-fade-in">
               <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
                 <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
                 <AvatarFallback><Bot size={16} /></AvatarFallback>
@@ -162,7 +174,7 @@ const ChatBot: React.FC = () => {
 
           {/* User reply after clicking START - aligned to the right */}
           {isMessageVisible('user-start') && (
-            <div className="chat-message flex justify-end">
+            <div className="chat-message flex justify-end animate-fade-in">
               <div className="bg-orange-500 text-white p-3 rounded-lg max-w-[80%]">
                 <p className="text-base">Start</p>
               </div>
@@ -174,7 +186,7 @@ const ChatBot: React.FC = () => {
 
           {/* Bot message 1 after START - Only shown after clicking START */}
           {isMessageVisible('msg1') && (
-            <div className="chat-message flex items-start">
+            <div className="chat-message flex items-start animate-fade-in">
               <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
                 <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
                 <AvatarFallback><Bot size={16} /></AvatarFallback>
@@ -187,7 +199,7 @@ const ChatBot: React.FC = () => {
 
           {/* Bot message 2 after START - Only shown after clicking START */}
           {isMessageVisible('msg2') && (
-            <div className="chat-message flex items-start">
+            <div className="chat-message flex items-start animate-fade-in">
               <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
                 <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
                 <AvatarFallback><Bot size={16} /></AvatarFallback>
@@ -200,7 +212,7 @@ const ChatBot: React.FC = () => {
 
           {/* Bot message 3 after START - Only shown after clicking START */}
           {isMessageVisible('msg3') && (
-            <div className="chat-message flex items-start">
+            <div className="chat-message flex items-start animate-fade-in">
               <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
                 <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
                 <AvatarFallback><Bot size={16} /></AvatarFallback>
@@ -213,7 +225,7 @@ const ChatBot: React.FC = () => {
 
           {/* BEGIN button - Only shown after showing all three previous messages */}
           {isMessageVisible('begin-button') && (
-            <div className="chat-message flex items-start">
+            <div className="chat-message flex items-start animate-fade-in">
               <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
                 <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
                 <AvatarFallback><Bot size={16} /></AvatarFallback>
@@ -233,7 +245,7 @@ const ChatBot: React.FC = () => {
 
           {/* User reply after clicking BEGIN - aligned to the right */}
           {isMessageVisible('user-begin') && (
-            <div className="chat-message flex justify-end">
+            <div className="chat-message flex justify-end animate-fade-in">
               <div className="bg-orange-500 text-white p-3 rounded-lg max-w-[80%]">
                 <p className="text-base">BEGIN</p>
               </div>
@@ -245,7 +257,7 @@ const ChatBot: React.FC = () => {
 
           {/* Final message with claim button - Only shown after clicking BEGIN */}
           {isMessageVisible('final-message') && (
-            <div className="chat-message flex items-start">
+            <div className="chat-message flex items-start animate-fade-in">
               <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
                 <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
                 <AvatarFallback><Bot size={16} /></AvatarFallback>
