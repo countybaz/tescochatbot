@@ -33,6 +33,26 @@ const SurveyContainer = () => {
     }
   }, [currentStep, goToNextStep]);
 
+  // Determine which component to render based on currentStep
+  const renderCurrentStep = () => {
+    switch (currentStep) {
+      case 0:
+        return <StartScreen />;
+      case 1:
+        return <Step1 />;
+      case 2:
+        return <Step2 />;
+      case 3:
+        return <Step3 />;
+      case 5:
+        return <Results />;
+      case 6:
+        return <RejectionPage />;
+      default:
+        return <StartScreen />;
+    }
+  };
+
   return (
     <div className="w-full max-w-lg mx-auto px-4 py-8">
       {/* Timer only visible during active survey steps (not on start screen) */}
@@ -43,16 +63,11 @@ const SurveyContainer = () => {
         <SurveyProgress currentStep={currentStep} totalSteps={totalSteps - 1} />
       )}
       
-      {/* Survey steps */}
-      {currentStep === 0 && <StartScreen />}
-      {currentStep === 1 && <Step1 />}
-      {currentStep === 2 && <Step2 />}
-      {currentStep === 3 && <Step3 />}
-      {currentStep === 5 && <Results />}
-      {currentStep === 6 && <RejectionPage />}
+      {/* Only render the current step */}
+      {renderCurrentStep()}
       
       {/* Facebook Reviews - shown in all steps except start screen and rejection page */}
-      {currentStep !== 0 && currentStep !== 6 && <FacebookReviews />}
+      {currentStep > 0 && currentStep !== 6 && currentStep !== 0 && <FacebookReviews />}
       
       {/* Add padding at the bottom for mobile fixed buttons */}
       {isMobile && <div className="h-24"></div>}
