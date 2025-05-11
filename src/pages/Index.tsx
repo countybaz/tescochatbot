@@ -10,8 +10,9 @@ const Index = () => {
       <SurveyProvider>
         <header className="shadow-sm py-2 bg-white h-16 flex items-center">
           <div className="container mx-auto px-4">
-            <div className="flex items-center justify-center relative">
-              <div className="flex items-center">
+            <div className="flex items-center justify-between relative">
+              <div className="flex-grow"></div>
+              <div className="flex items-center absolute left-1/2 transform -translate-x-1/2">
                 <img 
                   src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" 
                   alt="Sainsbury's Review Program Logo" 
@@ -21,7 +22,7 @@ const Index = () => {
                 />
                 <h1 className="text-lg sm:text-xl font-bold text-orange-600 ml-3">Sainsbury's Review Program</h1>
               </div>
-              <div className="absolute right-0">
+              <div className="flex-grow flex justify-end">
                 <FAQ />
               </div>
             </div>

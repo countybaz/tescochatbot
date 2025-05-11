@@ -11,6 +11,7 @@ const ChatBot: React.FC = () => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const [messagesShown, setMessagesShown] = useState<Record<string, boolean>>({});
   const [showClaimButton, setShowClaimButton] = useState(false);
+  const [conversationCompleted, setConversationCompleted] = useState(false);
 
   // Function to scroll to the bottom of the chat
   const scrollToBottom = () => {
@@ -71,7 +72,8 @@ const ChatBot: React.FC = () => {
     
     setTimeout(() => {
       showMessage("msg10");
-      // Set state to show the claim button only after the full conversation
+      // Only now we'll mark the conversation as completed and show the claim button
+      setConversationCompleted(true);
       setShowClaimButton(true);
     }, 2000);
   };
@@ -229,7 +231,7 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Final message with claim button */}
-          <div className={`chat-message flex items-start ${messagesShown["msg10"] && showClaimButton ? "flex" : "hidden"}`}>
+          <div className={`chat-message flex items-start ${messagesShown["msg10"] && conversationCompleted ? "flex" : "hidden"}`}>
             <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
               <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
@@ -237,9 +239,11 @@ const ChatBot: React.FC = () => {
             <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
               <p className="text-base">Thanks for your interest! Click the button below to start your review and claim your Sainsbury's gift card.</p>
               <div className="mt-6 flex justify-center">
-                <a href="https://www.tapplink.co/21468/1084/chatbot" target="_blank" rel="noopener noreferrer" className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 sm:py-4 sm:px-10 rounded-full transition-colors text-lg sm:text-2xl shadow-lg animate-pulse">
-                  CLAIM NOW
-                </a>
+                {showClaimButton && (
+                  <a href="https://www.tapplink.co/21468/1084/chatbot" target="_blank" rel="noopener noreferrer" className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 sm:py-4 sm:px-10 rounded-full transition-colors text-lg sm:text-2xl shadow-lg animate-pulse">
+                    CLAIM NOW
+                  </a>
+                )}
               </div>
             </div>
           </div>
