@@ -35,7 +35,7 @@ const ProductOffer = ({ onClaim }: ProductOfferProps) => {
     <div className="border border-gray-200 rounded-lg shadow-lg p-6 max-w-md mx-auto bg-white pb-20 md:pb-6">
       <div className="text-center mb-4">
         <h3 className="text-xl font-bold text-gray-900">Congratulations!</h3>
-        <p className="text-green-600 font-medium">You've qualified for our special offer!</p>
+        <p className="text-blue-600 font-medium">You've qualified for our special offer!</p>
       </div>
 
       <Timer minutes={3} />
@@ -47,7 +47,7 @@ const ProductOffer = ({ onClaim }: ProductOfferProps) => {
           ) : null}
           <img 
             src={GIFT_CARD_IMAGE}
-            alt="Sainsbury's Gift Card" 
+            alt="Tesco Gift Card" 
             className={`w-full h-48 object-contain rounded-md ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             style={{ transition: 'opacity 0.1s' }}
             width="300"
@@ -61,10 +61,10 @@ const ProductOffer = ({ onClaim }: ProductOfferProps) => {
       </div>
 
       <div className="mb-6">
-        <h4 className="font-bold text-lg mb-2">£100 Sainsbury's Gift Card</h4>
+        <h4 className="font-bold text-lg mb-2">£100 Tesco Gift Card</h4>
         <div className="flex items-center mb-1">
           <Check className="h-4 w-4 text-green-500 mr-2" />
-          <span className="text-gray-700">Valid in all Sainsbury's stores</span>
+          <span className="text-gray-700">Valid in all Tesco stores</span>
         </div>
         <div className="flex items-center mb-1">
           <Check className="h-4 w-4 text-green-500 mr-2" />
@@ -77,12 +77,12 @@ const ProductOffer = ({ onClaim }: ProductOfferProps) => {
       </div>
 
       <div className="mb-6 text-center">
-        <p className="text-orange-600 font-medium text-sm mt-1">Limited Time Offer</p>
+        <p className="text-blue-600 font-medium text-sm mt-1">Limited Time Offer</p>
       </div>
 
       <Button 
         onClick={onClaim} 
-        className={`w-full py-6 text-lg bg-green-600 hover:bg-green-700 shadow-md fixed bottom-4 left-0 right-0 max-w-xs mx-auto z-20 md:static md:max-w-md md:mt-6 border-2 border-green-700 ${isMobile ? 'h-16 text-xl' : ''}`}
+        className={`w-full py-6 text-lg bg-blue-700 hover:bg-blue-800 shadow-md fixed bottom-4 left-0 right-0 max-w-xs mx-auto z-20 md:static md:max-w-md md:mt-6 border-2 border-blue-800 ${isMobile ? 'h-16 text-xl' : ''}`}
       >
         APPLY NOW
       </Button>

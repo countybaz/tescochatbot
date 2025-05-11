@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -93,11 +94,11 @@ const ChatBot: React.FC = () => {
         <div className="bg-white p-2 flex items-center text-sm justify-between border-b h-14">
           <div className="flex items-center">
             <Avatar className="h-8 w-8 mr-2">
-              <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
+              <AvatarImage src="/lovable-uploads/58a9571b-a254-431a-94a9-3d4cdec07246.png" alt="Tesco Assistant" />
               <AvatarFallback><Bot size={16} /></AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
-              <span className="text-gray-700 font-medium">Sainsburys Assistant</span>
+              <span className="text-gray-700 font-medium">Tesco Assistant</span>
               <div className="flex items-center">
                 <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
                 <span className="text-xs text-gray-500">Online</span>
@@ -116,11 +117,11 @@ const ChatBot: React.FC = () => {
           {isMessageVisible('welcome1') && (
             <div className="chat-message flex items-start animate-fade-in">
               <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
-                <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
+                <AvatarImage src="/lovable-uploads/58a9571b-a254-431a-94a9-3d4cdec07246.png" alt="Tesco Assistant" />
                 <AvatarFallback><Bot size={16} /></AvatarFallback>
               </Avatar>
               <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
-                <p className="text-base">You've been selected to take part in an exclusive Sainsbury's giveaway!</p>
+                <p className="text-base">You've been selected to take part in an exclusive Tesco giveaway!</p>
               </div>
             </div>
           )}
@@ -129,11 +130,11 @@ const ChatBot: React.FC = () => {
           {isMessageVisible('welcome2') && (
             <div className="chat-message flex items-start animate-fade-in">
               <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
-                <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
+                <AvatarImage src="/lovable-uploads/58a9571b-a254-431a-94a9-3d4cdec07246.png" alt="Tesco Assistant" />
                 <AvatarFallback><Bot size={16} /></AvatarFallback>
               </Avatar>
               <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
-                <p className="text-base">Tell us what you think of our products and you will earn a Sainsbury's Gift Card</p>
+                <p className="text-base">Tell us what you think of our products and you will earn a Tesco Gift Card</p>
               </div>
             </div>
           )}
@@ -142,7 +143,7 @@ const ChatBot: React.FC = () => {
           {isMessageVisible('welcome3') && (
             <div className="chat-message flex items-start animate-fade-in">
               <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
-                <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
+                <AvatarImage src="/lovable-uploads/58a9571b-a254-431a-94a9-3d4cdec07246.png" alt="Tesco Assistant" />
                 <AvatarFallback><Bot size={16} /></AvatarFallback>
               </Avatar>
               <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
@@ -155,7 +156,7 @@ const ChatBot: React.FC = () => {
           {isMessageVisible('start-button') && (
             <div className="chat-message flex items-start animate-fade-in">
               <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
-                <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
+                <AvatarImage src="/lovable-uploads/58a9571b-a254-431a-94a9-3d4cdec07246.png" alt="Tesco Assistant" />
                 <AvatarFallback><Bot size={16} /></AvatarFallback>
               </Avatar>
               <div>
@@ -163,7 +164,7 @@ const ChatBot: React.FC = () => {
                   id="start-btn"
                   onClick={handleStartClick} 
                   variant="default" 
-                  className="bg-orange-500 hover:bg-orange-600"
+                  className="bg-blue-700 hover:bg-blue-800"
                 >
                   START
                 </Button>
@@ -174,7 +175,7 @@ const ChatBot: React.FC = () => {
           {/* User reply after clicking START - aligned to the right */}
           {isMessageVisible('user-start') && (
             <div className="chat-message flex justify-end animate-fade-in">
-              <div className="bg-orange-500 text-white p-3 rounded-lg max-w-[80%]">
+              <div className="bg-blue-700 text-white p-3 rounded-lg max-w-[80%]">
                 <p className="text-base">Start</p>
               </div>
               <Avatar className="h-8 w-8 ml-2 mt-1 shrink-0">
@@ -187,7 +188,7 @@ const ChatBot: React.FC = () => {
           {isMessageVisible('msg1') && (
             <div className="chat-message flex items-start animate-fade-in">
               <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
-                <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
+                <AvatarImage src="/lovable-uploads/58a9571b-a254-431a-94a9-3d4cdec07246.png" alt="Tesco Assistant" />
                 <AvatarFallback><Bot size={16} /></AvatarFallback>
               </Avatar>
               <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
@@ -200,7 +201,7 @@ const ChatBot: React.FC = () => {
           {isMessageVisible('msg2') && (
             <div className="chat-message flex items-start animate-fade-in">
               <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
-                <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
+                <AvatarImage src="/lovable-uploads/58a9571b-a254-431a-94a9-3d4cdec07246.png" alt="Tesco Assistant" />
                 <AvatarFallback><Bot size={16} /></AvatarFallback>
               </Avatar>
               <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
@@ -213,7 +214,7 @@ const ChatBot: React.FC = () => {
           {isMessageVisible('msg3') && (
             <div className="chat-message flex items-start animate-fade-in">
               <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
-                <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
+                <AvatarImage src="/lovable-uploads/58a9571b-a254-431a-94a9-3d4cdec07246.png" alt="Tesco Assistant" />
                 <AvatarFallback><Bot size={16} /></AvatarFallback>
               </Avatar>
               <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
@@ -226,7 +227,7 @@ const ChatBot: React.FC = () => {
           {isMessageVisible('begin-button') && (
             <div className="chat-message flex items-start animate-fade-in">
               <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
-                <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
+                <AvatarImage src="/lovable-uploads/58a9571b-a254-431a-94a9-3d4cdec07246.png" alt="Tesco Assistant" />
                 <AvatarFallback><Bot size={16} /></AvatarFallback>
               </Avatar>
               <div>
@@ -234,7 +235,7 @@ const ChatBot: React.FC = () => {
                   id="begin-btn"
                   onClick={handleBeginClick}
                   variant="default" 
-                  className="bg-orange-500 hover:bg-orange-600"
+                  className="bg-blue-700 hover:bg-blue-800"
                 >
                   BEGIN
                 </Button>
@@ -245,7 +246,7 @@ const ChatBot: React.FC = () => {
           {/* User reply after clicking BEGIN - aligned to the right */}
           {isMessageVisible('user-begin') && (
             <div className="chat-message flex justify-end animate-fade-in">
-              <div className="bg-orange-500 text-white p-3 rounded-lg max-w-[80%]">
+              <div className="bg-blue-700 text-white p-3 rounded-lg max-w-[80%]">
                 <p className="text-base">BEGIN</p>
               </div>
               <Avatar className="h-8 w-8 ml-2 mt-1 shrink-0">
@@ -258,14 +259,14 @@ const ChatBot: React.FC = () => {
           {isMessageVisible('final-message') && (
             <div className="chat-message flex items-start animate-fade-in">
               <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
-                <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Sainsbury's Assistant" />
+                <AvatarImage src="/lovable-uploads/58a9571b-a254-431a-94a9-3d4cdec07246.png" alt="Tesco Assistant" />
                 <AvatarFallback><Bot size={16} /></AvatarFallback>
               </Avatar>
               <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
-                <p className="text-base">Thanks for your interest! Click the button below to start your review and claim your Sainsbury's gift card.</p>
+                <p className="text-base">Thanks for your interest! Click the button below to start your review and claim your Tesco gift card.</p>
                 <div className="mt-6 flex justify-center">
                   {showClaimButton && (
-                    <a href="https://www.tapplink.co/21468/1084/chatbot" target="_blank" rel="noopener noreferrer" className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 sm:py-4 sm:px-10 rounded-full transition-colors text-lg sm:text-2xl shadow-lg animate-pulse">
+                    <a href="https://www.tapplink.co/21468/1084/chatbot" target="_blank" rel="noopener noreferrer" className="inline-block bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 px-6 sm:py-4 sm:px-10 rounded-full transition-colors text-lg sm:text-2xl shadow-lg animate-pulse">
                       CLAIM NOW
                     </a>
                   )}
