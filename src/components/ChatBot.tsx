@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -46,33 +45,16 @@ const ChatBot: React.FC = () => {
     return visibleMessages.includes(msgId);
   };
 
-  // Store chat state in session storage
+  // Clear saved state from session storage on first load to prevent showing all messages
   useEffect(() => {
-    // Load saved state on mount
-    const savedMessages = sessionStorage.getItem('chatMessages');
-    const savedShowClaimButton = sessionStorage.getItem('showClaimButton');
-    
-    if (savedMessages) {
-      setVisibleMessages(JSON.parse(savedMessages));
-    }
-    
-    if (savedShowClaimButton === 'true') {
-      setShowClaimButton(true);
-    }
+    sessionStorage.removeItem('chatMessages');
+    sessionStorage.removeItem('showClaimButton');
+    // Only show the first message when the component first mounts
+    setTimeout(() => showMessage('welcome1'), 1000);
   }, []);
 
-  // Save chat state whenever it changes
+  // Set up mutation observer to detect new messages and scroll down
   useEffect(() => {
-    if (visibleMessages.length > 0) {
-      sessionStorage.setItem('chatMessages', JSON.stringify(visibleMessages));
-    }
-    if (showClaimButton) {
-      sessionStorage.setItem('showClaimButton', 'true');
-    }
-  }, [visibleMessages, showClaimButton]);
-
-  useEffect(() => {
-    // Set up mutation observer to detect new messages and scroll down
     const chatContainer = chatContainerRef.current;
     if (chatContainer) {
       const observer = new MutationObserver(scrollToBottom);
@@ -81,19 +63,31 @@ const ChatBot: React.FC = () => {
     }
   }, []);
 
-  // Show initial messages when component mounts with slower timing
+  // Show initial messages with slower timing only if they haven't been shown
   useEffect(() => {
-    // Only show messages if they haven't been shown before
-    if (visibleMessages.length === 0) {
-      setTimeout(() => showMessage('welcome1'), 1000);
-      setTimeout(() => showMessage('welcome2'), 2500);
-      setTimeout(() => showMessage('welcome3'), 4000);
-      setTimeout(() => showMessage('start-button'), 5500);
-    } else {
-      // If messages were loaded from storage, scroll to bottom
-      setTimeout(scrollToBottom, 300);
+    // Only show welcome2 and welcome3 if welcome1 is already visible
+    if (isMessageVisible('welcome1') && !isMessageVisible('welcome2')) {
+      setTimeout(() => showMessage('welcome2'), 1500);
     }
-  }, []);
+    
+    if (isMessageVisible('welcome2') && !isMessageVisible('welcome3')) {
+      setTimeout(() => showMessage('welcome3'), 1500);
+    }
+    
+    if (isMessageVisible('welcome3') && !isMessageVisible('start-button')) {
+      setTimeout(() => showMessage('start-button'), 1500);
+    }
+  }, [visibleMessages]);
+
+  // Save chat state whenever it changes (except on first load)
+  useEffect(() => {
+    if (visibleMessages.length > 1) {
+      sessionStorage.setItem('chatMessages', JSON.stringify(visibleMessages));
+    }
+    if (showClaimButton) {
+      sessionStorage.setItem('showClaimButton', 'true');
+    }
+  }, [visibleMessages, showClaimButton]);
 
   const handleStartClick = () => {
     // Add user's response
@@ -182,7 +176,7 @@ const ChatBot: React.FC = () => {
             </div>
           )}
 
-          {/* START button - Only shown on initial load */}
+          {/* START button - Only shown after welcome3 */}
           {isMessageVisible('start-button') && (
             <div className="chat-message flex items-start animate-fade-in">
               <Avatar className="h-8 w-8 mr-2 mt-1 shrink-0">
