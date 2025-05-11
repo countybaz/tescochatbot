@@ -67,7 +67,7 @@ const SurveyContainer = () => {
       {renderCurrentStep()}
       
       {/* Facebook Reviews - shown in all steps except start screen and rejection page */}
-      {currentStep > 0 && currentStep !== 6 && currentStep !== 0 && <FacebookReviews />}
+      {currentStep > 0 && currentStep !== 6 && <FacebookReviews />}
       
       {/* Add padding at the bottom for mobile fixed buttons */}
       {isMobile && <div className="h-24"></div>}
