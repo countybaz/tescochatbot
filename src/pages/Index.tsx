@@ -1,27 +1,31 @@
 
 import { SurveyProvider } from "@/contexts/SurveyContext";
-import SurveyContainer from "@/components/SurveyContainer";
 import ChatBot from "@/components/ChatBot";
-import FAQ from "@/components/FAQ";
 import { Link } from "react-router-dom";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-50 to-orange-100 text-center">
+    <div className="min-h-screen bg-gradient-to-b from-orange-50 to-orange-100">
       <SurveyProvider>
-        <header className="shadow-sm py-2 bg-white h-24 flex items-center">
+        <header className="shadow-sm py-2 bg-white h-16 flex items-center">
           <div className="container mx-auto px-4 flex items-center justify-center">
-            <HeaderContent />
+            <img 
+              src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" 
+              alt="Sainsbury's Review Program Logo" 
+              className="h-12 w-auto mr-3"
+              width="100" 
+              height="100"
+            />
+            <h1 className="text-xl font-bold text-orange-600">Sainsbury's Review Program</h1>
           </div>
         </header>
         
         <main className="container mx-auto relative">
           <ChatBot />
-          <SurveyContainer />
         </main>
       </SurveyProvider>
 
-      <footer className="bg-white border-t mt-12">
+      <footer className="bg-white border-t mt-8">
         <div className="container mx-auto px-4 py-6 text-center">
           {/* Legal Links Section */}
           <div className="mb-6">
@@ -48,27 +52,6 @@ const Index = () => {
           </p>
         </div>
       </footer>
-    </div>
-  );
-};
-
-// Create a separate component for the header content
-const HeaderContent = () => {
-  return (
-    <div className="flex items-center cursor-pointer">
-      <img 
-        src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" 
-        alt="Sainsbury's Review Program Logo" 
-        className="h-20 w-auto min-w-[80px] md:h-24"
-        width="100" 
-        height="100"
-        loading="eager"
-        fetchPriority="high"
-      />
-      <h1 className="text-xl font-bold text-orange-600">Sainsbury's Review Program</h1>
-      <div className="ml-4">
-        <FAQ />
-      </div>
     </div>
   );
 };

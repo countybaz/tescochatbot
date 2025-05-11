@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -101,6 +100,7 @@
   }
 }
 
+/* Animation styles */
 .animate-pulse {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
@@ -114,50 +114,6 @@
   }
 }
 
-/* Chat styles */
-.chat-message {
-  display: none;
-  margin-bottom: 10px;
-}
-
-.chat-bubble {
-  background-color: #f1f1f1;
-  border-radius: 10px;
-  padding: 10px 15px;
-  max-width: 80%;
-  margin-left: 10px;
-}
-
-.user-chat-bubble {
-  background-color: #ff7700;
-  color: white;
-  border-radius: 10px;
-  padding: 10px 15px;
-}
-
-.typing-indicator {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #888;
-  margin-right: 4px;
-  animation: bounce 1.4s infinite;
-}
-
-.dot:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.dot:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
 @keyframes bounce {
   0%, 80%, 100% { 
     transform: translateY(0);
@@ -167,3 +123,41 @@
   }
 }
 
+/* Chat message styling */
+.chat-message {
+  display: none;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.chat-message.flex {
+  display: flex;
+}
+
+/* Ensure avatar doesn't stretch or push content */
+.avatar-container {
+  flex-shrink: 0;
+}
+
+/* Make sure buttons stand out */
+#yes-btn, 
+#yes-btn-2 {
+  transition: all 0.3s ease;
+}
+
+#yes-btn:hover, 
+#yes-btn-2:hover {
+  transform: scale(1.05);
+}
+
+/* Add smooth transition for message appearance */
+.chat-message {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.chat-message.flex {
+  opacity: 1;
+  transform: translateY(0);
+}
