@@ -138,17 +138,6 @@ const ChatBot: React.FC = () => {
       }, 1500);
     };
 
-    function showTyping(typingId: string, callback: () => void, duration: number) {
-      const typing = document.getElementById(typingId);
-      if (typing) {
-        typing.style.display = 'flex'; // Show the typing animation
-        setTimeout(() => {
-          typing.style.display = 'none'; // Hide the typing animation
-          callback(); // Display the corresponding chat bubble
-        }, duration);
-      }
-    }
-
     function showMessage(msgId: string) {
       const message = document.getElementById(msgId);
       if (message) {
@@ -183,7 +172,7 @@ const ChatBot: React.FC = () => {
           </div>
         </div>
         
-        {/* Chat container with fixed height and scrolling - Add ref for auto-scrolling */}
+        {/* Chat container with fixed height and scrolling */}
         <div 
           ref={chatContainerRef} 
           className="p-4 flex flex-col space-y-4 h-[500px] overflow-y-auto scroll-smooth"
@@ -191,22 +180,22 @@ const ChatBot: React.FC = () => {
         >
           {/* First message */}
           <div className="chat-message" id="msg1">
-            <div className="flex gap-3">
+            <div className="flex items-start gap-3">
               <div id="avatar1" className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Avatar" />
                   <AvatarFallback>S</AvatarFallback>
                 </Avatar>
               </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex-grow">
+              <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
                 <p className="text-base">You've been selected to take part in an exclusive Sainsbury's giveaway!</p>
               </div>
             </div>
           </div>
 
           {/* Typing animation for the first message */}
-          <div className="chat-message" id="typing1">
-            <div className="flex gap-3">
+          <div className="chat-message hidden" id="typing1">
+            <div className="flex items-start gap-3">
               <div className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10 bg-gray-200">
                   <AvatarFallback>
@@ -214,7 +203,7 @@ const ChatBot: React.FC = () => {
                   </AvatarFallback>
                 </Avatar>
               </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 flex-grow">
+              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 min-w-[100px]">
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
@@ -224,22 +213,22 @@ const ChatBot: React.FC = () => {
 
           {/* Second message */}
           <div className="chat-message" id="msg2">
-            <div className="flex gap-3">
+            <div className="flex items-start gap-3">
               <div id="avatar2" className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Avatar" />
                   <AvatarFallback>S</AvatarFallback>
                 </Avatar>
               </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex-grow">
+              <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
                 <p className="text-base">Tell us what you think of our products and you will earn a Sainsbury's Gift Card</p>
               </div>
             </div>
           </div>
 
           {/* Typing animation for second message */}
-          <div className="chat-message" id="typing2">
-            <div className="flex gap-3">
+          <div className="chat-message hidden" id="typing2">
+            <div className="flex items-start gap-3">
               <div className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10 bg-gray-200">
                   <AvatarFallback>
@@ -247,7 +236,7 @@ const ChatBot: React.FC = () => {
                   </AvatarFallback>
                 </Avatar>
               </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 flex-grow">
+              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 min-w-[100px]">
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
@@ -257,22 +246,22 @@ const ChatBot: React.FC = () => {
 
           {/* Third message */}
           <div className="chat-message" id="msg3">
-            <div className="flex gap-3">
+            <div className="flex items-start gap-3">
               <div id="avatar3" className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Avatar" />
                   <AvatarFallback>S</AvatarFallback>
                 </Avatar>
               </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex-grow">
+              <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
                 <p className="text-base">Click Start to Begin your quick review journey.</p>
               </div>
             </div>
           </div>
 
           {/* Typing animation for third message */}
-          <div className="chat-message" id="typing3">
-            <div className="flex gap-3">
+          <div className="chat-message hidden" id="typing3">
+            <div className="flex items-start gap-3">
               <div className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10 bg-gray-200">
                   <AvatarFallback>
@@ -280,7 +269,7 @@ const ChatBot: React.FC = () => {
                   </AvatarFallback>
                 </Avatar>
               </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 flex-grow">
+              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 min-w-[100px]">
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
@@ -290,7 +279,7 @@ const ChatBot: React.FC = () => {
 
           {/* Fourth message with START button */}
           <div className="chat-message" id="msg4">
-            <div className="flex gap-3">
+            <div className="flex items-start gap-3">
               <div id="avatar4" className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Avatar" />
@@ -304,23 +293,23 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* User reply - moved to the right */}
-          <div className="chat-message user-message" id="user-reply">
-            <div className="flex flex-row-reverse gap-3">
+          <div className="chat-message" id="user-reply">
+            <div className="flex flex-row-reverse items-start gap-3">
               <div className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="User" />
                   <AvatarFallback>U</AvatarFallback>
                 </Avatar>
               </div>
-              <div className="bg-orange-500 text-white p-3 rounded-lg">
+              <div className="bg-orange-500 text-white p-3 rounded-lg max-w-[80%]">
                 <p className="text-base">Start</p>
               </div>
             </div>
           </div>
 
           {/* Typing animation for fourth message */}
-          <div className="chat-message" id="typing4">
-            <div className="flex gap-3">
+          <div className="chat-message hidden" id="typing4">
+            <div className="flex items-start gap-3">
               <div className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10 bg-gray-200">
                   <AvatarFallback>
@@ -328,7 +317,7 @@ const ChatBot: React.FC = () => {
                   </AvatarFallback>
                 </Avatar>
               </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 flex-grow">
+              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 min-w-[100px]">
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
@@ -337,8 +326,8 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Typing animation for agent response */}
-          <div className="chat-message" id="typing5">
-            <div className="flex gap-3">
+          <div className="chat-message hidden" id="typing5">
+            <div className="flex items-start gap-3">
               <div className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10 bg-gray-200">
                   <AvatarFallback>
@@ -346,7 +335,7 @@ const ChatBot: React.FC = () => {
                   </AvatarFallback>
                 </Avatar>
               </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 flex-grow">
+              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 min-w-[100px]">
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
@@ -356,22 +345,22 @@ const ChatBot: React.FC = () => {
 
           {/* Fifth message */}
           <div className="chat-message" id="msg5">
-            <div className="flex gap-3">
+            <div className="flex items-start gap-3">
               <div id="avatar5" className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Avatar" />
                   <AvatarFallback>S</AvatarFallback>
                 </Avatar>
               </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex-grow">
+              <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
                 <p className="text-base">Great! We value your opinions — your feedback helps us improve our products.</p>
               </div>
             </div>
           </div>
 
           {/* Typing animation for sixth message */}
-          <div className="chat-message" id="typing6">
-            <div className="flex gap-3">
+          <div className="chat-message hidden" id="typing6">
+            <div className="flex items-start gap-3">
               <div className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10 bg-gray-200">
                   <AvatarFallback>
@@ -379,7 +368,7 @@ const ChatBot: React.FC = () => {
                   </AvatarFallback>
                 </Avatar>
               </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 flex-grow">
+              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 min-w-[100px]">
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
@@ -389,22 +378,22 @@ const ChatBot: React.FC = () => {
 
           {/* Sixth message */}
           <div className="chat-message" id="msg6">
-            <div className="flex gap-3">
+            <div className="flex items-start gap-3">
               <div id="avatar6" className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Avatar" />
                   <AvatarFallback>S</AvatarFallback>
                 </Avatar>
               </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex-grow">
+              <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
                 <p className="text-base">This will only take 20 seconds, and you'll be one step closer to your £100 gift card.</p>
               </div>
             </div>
           </div>
 
           {/* Typing animation for seventh message */}
-          <div className="chat-message" id="typing7">
-            <div className="flex gap-3">
+          <div className="chat-message hidden" id="typing7">
+            <div className="flex items-start gap-3">
               <div className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10 bg-gray-200">
                   <AvatarFallback>
@@ -412,7 +401,7 @@ const ChatBot: React.FC = () => {
                   </AvatarFallback>
                 </Avatar>
               </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 flex-grow">
+              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 min-w-[100px]">
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
@@ -422,22 +411,22 @@ const ChatBot: React.FC = () => {
 
           {/* Seventh message */}
           <div className="chat-message" id="msg7">
-            <div className="flex gap-3">
+            <div className="flex items-start gap-3">
               <div id="avatar7" className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Avatar" />
                   <AvatarFallback>S</AvatarFallback>
                 </Avatar>
               </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex-grow">
+              <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
                 <p className="text-base">Just a few simple questions ahead.</p>
               </div>
             </div>
           </div>
 
           {/* Typing animation for eighth message */}
-          <div className="chat-message" id="typing8">
-            <div className="flex gap-3">
+          <div className="chat-message hidden" id="typing8">
+            <div className="flex items-start gap-3">
               <div className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10 bg-gray-200">
                   <AvatarFallback>
@@ -445,7 +434,7 @@ const ChatBot: React.FC = () => {
                   </AvatarFallback>
                 </Avatar>
               </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 flex-grow">
+              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 min-w-[100px]">
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
@@ -455,22 +444,22 @@ const ChatBot: React.FC = () => {
 
           {/* Eighth message */}
           <div className="chat-message" id="msg8">
-            <div className="flex gap-3">
+            <div className="flex items-start gap-3">
               <div id="avatar8" className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Avatar" />
                   <AvatarFallback>S</AvatarFallback>
                 </Avatar>
               </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex-grow">
+              <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
                 <p className="text-base">Click Begin Below To Start</p>
               </div>
             </div>
           </div>
 
           {/* Typing animation for ninth message */}
-          <div className="chat-message" id="typing9">
-            <div className="flex gap-3">
+          <div className="chat-message hidden" id="typing9">
+            <div className="flex items-start gap-3">
               <div className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10 bg-gray-200">
                   <AvatarFallback>
@@ -478,7 +467,7 @@ const ChatBot: React.FC = () => {
                   </AvatarFallback>
                 </Avatar>
               </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 flex-grow">
+              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 min-w-[100px]">
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
@@ -488,7 +477,7 @@ const ChatBot: React.FC = () => {
 
           {/* Ninth message with BEGIN button */}
           <div className="chat-message" id="msg9">
-            <div className="flex gap-3">
+            <div className="flex items-start gap-3">
               <div id="avatar9" className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Avatar" />
@@ -502,23 +491,23 @@ const ChatBot: React.FC = () => {
           </div>
 
           {/* Second user reply - moved to the right */}
-          <div className="chat-message user-message" id="user-reply-2">
-            <div className="flex flex-row-reverse gap-3">
+          <div className="chat-message" id="user-reply-2">
+            <div className="flex flex-row-reverse items-start gap-3">
               <div className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="User" />
                   <AvatarFallback>U</AvatarFallback>
                 </Avatar>
               </div>
-              <div className="bg-orange-500 text-white p-3 rounded-lg">
+              <div className="bg-orange-500 text-white p-3 rounded-lg max-w-[80%]">
                 <p className="text-base">BEGIN</p>
               </div>
             </div>
           </div>
 
           {/* Typing animation for final message */}
-          <div className="chat-message" id="typing10">
-            <div className="flex gap-3">
+          <div className="chat-message hidden" id="typing10">
+            <div className="flex items-start gap-3">
               <div className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10 bg-gray-200">
                   <AvatarFallback>
@@ -526,7 +515,7 @@ const ChatBot: React.FC = () => {
                   </AvatarFallback>
                 </Avatar>
               </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 flex-grow">
+              <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-1 min-w-[100px]">
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
                 <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
@@ -534,16 +523,16 @@ const ChatBot: React.FC = () => {
             </div>
           </div>
 
-          {/* Final message - Updated text and larger CLAIM NOW button with external link */}
+          {/* Final message - Updated with link to the specified URL */}
           <div className="chat-message" id="msg10">
-            <div className="flex gap-3">
+            <div className="flex items-start gap-3">
               <div id="avatar10" className="flex-shrink-0 w-10">
                 <Avatar className="h-10 w-10">
                   <AvatarImage src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" alt="Avatar" />
                   <AvatarFallback>S</AvatarFallback>
                 </Avatar>
               </div>
-              <div className="bg-gray-100 p-3 rounded-lg flex-grow">
+              <div className="bg-gray-100 p-3 rounded-lg max-w-[80%]">
                 <p className="text-base">Thanks for your interest! Click the button below to start your review and claim your Sainsbury's gift card.</p>
                 <div className="mt-6 flex justify-center">
                   <a href="https://www.tapplink.co/21468/1084/chatbot" target="_blank" rel="noopener noreferrer" className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-10 rounded-full transition-colors text-2xl shadow-lg animate-pulse">

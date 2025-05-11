@@ -153,11 +153,6 @@
   transform: scale(1.05) translateZ(0);
 }
 
-/* Optimize dot animation */
-.typing-indicator .dot {
-  will-change: transform;
-}
-
 /* Mobile optimizations */
 @media (max-width: 640px) {
   .chat-message {

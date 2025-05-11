@@ -9,8 +9,8 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-b from-orange-50 to-orange-100">
       <SurveyProvider>
         <header className="shadow-sm py-2 bg-white h-16 flex items-center">
-          <div className="container mx-auto px-4 flex items-center justify-between">
-            <div className="flex items-center justify-center">
+          <div className="container mx-auto px-4 flex items-center">
+            <div className="flex items-center justify-start w-1/3">
               <img 
                 src="/lovable-uploads/cbdedd35-0ec9-4e16-8866-51e309907ad3.png" 
                 alt="Sainsbury's Review Program Logo" 
@@ -19,8 +19,8 @@ const Index = () => {
                 height="120"
               />
             </div>
-            <h1 className="text-xl font-bold text-orange-600">Sainsbury's Review Program</h1>
-            <div className="z-50">
+            <h1 className="text-xl font-bold text-orange-600 flex-grow text-center w-1/3">Sainsbury's Review Program</h1>
+            <div className="flex justify-end w-1/3">
               <FAQ />
             </div>
           </div>
