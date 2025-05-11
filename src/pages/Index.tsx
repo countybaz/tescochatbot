@@ -1,6 +1,7 @@
 
 import { SurveyProvider } from "@/contexts/SurveyContext";
 import ChatBot from "@/components/ChatBot";
+import FAQ from "@/components/FAQ";
 import { Link } from "react-router-dom";
 
 const Index = () => {
@@ -22,6 +23,10 @@ const Index = () => {
         
         <main className="container mx-auto relative">
           <ChatBot />
+          {/* Fixed position FAQ button for mobile and desktop */}
+          <div className="fixed bottom-6 right-6 z-50">
+            <FAQ />
+          </div>
         </main>
       </SurveyProvider>
 
